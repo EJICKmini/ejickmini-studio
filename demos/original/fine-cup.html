@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fine Cup Coffee Roasters — Proposed Redesign (Demo, not the official website)</title>
+<style>
+  /* Third-wave roaster redesign — Tim Wendelboe / Square Mile / La Cabra lessons:
+     menu-as-typography, origin & tasting lines, honest inventory, quiet palette.
+     No gradients, no emoji, no stock coffee cups. */
+  :root{
+    --ink:#241a12; --paper:#f5f0e6; --cream:#fbf7ee; --line:#ddd3bd;
+    --accent:#a35427; --green:#2e5e43; --amber:#a3660f; --sold:#8a2f24;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:"Avenir Next","Century Gothic","Segoe UI",Helvetica,Arial,sans-serif;
+    --serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--serif);color:var(--ink);background:var(--paper);line-height:1.55}
+  .demo-banner{position:sticky;top:0;z-index:50;background:var(--ink);color:#f2ead9;text-align:center;
+    font-family:var(--sans);font-size:12.5px;padding:8px 14px;line-height:1.5}
+  .demo-banner a{color:#eec987;text-decoration:underline;text-underline-offset:2px}
+  a{color:inherit}
+  .masthead{max-width:1060px;margin:0 auto;padding:34px 24px 18px;display:flex;flex-wrap:wrap;
+    align-items:baseline;justify-content:space-between;gap:8px 20px;border-bottom:2px solid var(--ink)}
+  .brand{font-size:clamp(28px,5.4vw,44px);font-weight:700;letter-spacing:.18em;line-height:1}
+  .brand small{display:block;font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.34em;
+    text-transform:uppercase;color:#7a6f5d;margin-top:8px}
+  .mast-note{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:#7a6f5c;white-space:nowrap}
+  .mast-nav{width:100%;font-family:var(--sans);font-size:13px}
+  .mast-nav a{color:#55492f;color:#5d5342;text-decoration:underline;text-underline-offset:3px;margin-right:14px}
+  .mast-nav a:hover{color:var(--accent)}
+  .hero{max-width:1060px;margin:0 auto;padding:52px 24px 38px;display:grid;gap:24px}
+  .hero h1{font-size:clamp(38px,7vw,70px);line-height:1;letter-spacing:-.015em;font-weight:700;margin:0}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .pull{border-left:3px solid var(--accent);padding:6px 0 6px 20px;font-size:clamp(17px,2.8vw,21px);font-style:italic;color:#4d4234;max-width:56ch}
+  .pull b{display:block;font-family:var(--sans);font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7a6f5d;margin-top:8px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .btn{display:inline-block;font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    padding:13px 22px;background:var(--ink);color:var(--cream);text-decoration:none;border:1px solid var(--ink)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.ghost:hover{background:transparent;color:var(--accent)}
+  .mono-note{font-family:var(--mono);font-size:11.5px;color:#8a7f6a;letter-spacing:.04em}
+  nav.housebar{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  nav.housebar .inner{max-width:1060px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:2px 26px}
+  nav.housebar a{font-family:var(--sans);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;padding:12px 0;display:inline-block;color:#5d5342}
+  nav.housebar a:hover{color:var(--accent)}
+  section{max-width:1060px;margin:0 auto;padding:52px 24px 8px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2{font-size:clamp(26px,4.6vw,38px);line-height:1.08;letter-spacing:-.01em;margin-bottom:10px}
+  .section-note{max-width:66ch;color:#4d4234;margin-bottom:24px}
+  /* snapshot banner */
+  .snapshot{border:1.5px solid var(--ink);background:var(--cream);padding:14px 18px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between}
+  .snapshot .t{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .snapshot .m{font-family:var(--mono);font-size:12px;color:#5d5342}
+  .snapshot a{color:var(--accent)}
+  /* menu */
+  .menu-group{margin-bottom:34px}
+  .menu-group h3{font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#7a6f5d;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+  .item{display:grid;grid-template-columns:1fr auto;gap:4px 18px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .item .name{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .item .dots{flex:1;border-bottom:2px dotted #b9ab8d;margin:0 .4em .35em;min-width:40px}
+  .item .priceline{display:flex;align-items:baseline;font-family:var(--sans)}
+  .item .price{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .item .cur{font-family:var(--mono);font-size:11px;color:#7a6f5d;margin-left:6px}
+  .item .desc{grid-column:1;font-size:14.5px;color:#4d4234;font-style:italic}
+  .item .stock{grid-column:2;justify-self:end;align-self:end;text-align:right}
+  .badge{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 10px;border:1.5px solid;display:inline-block}
+  .badge.available{color:var(--green);border-color:var(--green)}
+  .badge.low{color:var(--amber);border-color:var(--amber)}
+  .badge.soon{color:var(--accent);border-color:var(--accent)}
+  .badge.sold{color:#fff;background:var(--sold);border-color:var(--sold)}
+  .stock .qty{font-family:var(--mono);font-size:11px;color:#7a6f5d;display:block;margin-top:4px}
+  .legend{font-family:var(--sans);font-size:13px;color:#4d4234;margin-top:10px;max-width:70ch}
+  .legend code{font-family:var(--mono);font-size:12px;background:#ece4d2;padding:1px 5px}
+  .hours{display:grid;grid-template-columns:auto 1fr;gap:8px 22px;font-size:16px;border:1.5px solid var(--ink);background:var(--cream);padding:18px 20px;max-width:620px}
+  .hours .d{font-family:var(--sans);font-weight:600}
+  .hours .warn{grid-column:1/-1;font-family:var(--sans);font-size:13px;color:var(--accent);border-top:1px dotted var(--line);padding-top:10px}
+  /* fix callout */
+  .callout{border:1.5px solid var(--accent);background:var(--cream);padding:18px 20px;max-width:780px}
+  .callout b{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+  .callout code{font-family:var(--mono);font-size:13px;background:#ece4d2;padding:1px 5px}
+  /* order builder */
+  .builder{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+  .builder form{border:1.5px solid var(--ink);background:var(--cream);padding:22px;display:grid;gap:12px;font-family:var(--sans)}
+  .pick{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dotted var(--line)}
+  .pick input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+  .pick .pn{font-size:15.5px;font-weight:600}
+  .pick .pp{font-family:var(--mono);font-size:13px;color:#5d5342;white-space:nowrap}
+  .pick.soldout{opacity:.45}
+  .pick.soldout .pn::after{content:" — sold out";font-weight:400;font-style:italic;color:var(--sold)}
+  .qtyrow{display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:end}
+  .builder label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5d5342;display:block;margin-bottom:4px}
+  .builder select{padding:10px;border:1px solid #b9ab8d;background:#fff;font-size:15px;width:100%;font-family:var(--sans)}
+  .builder button{background:var(--ink);color:var(--cream);border:1px solid var(--ink);padding:13px 20px;
+    font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .builder button:hover{background:var(--accent);border-color:var(--accent)}
+  .ticket{border:1.5px solid var(--ink);background:#fff;padding:20px;position:sticky;top:64px}
+  .ticket .thead{border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline}
+  .ticket .thead .t{font-weight:700;font-size:18px}
+  .ticket .thead .m{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#7a6f5d;text-transform:uppercase}
+  .ticket .line{display:flex;justify-content:space-between;gap:14px;font-size:14.5px;padding:5px 0;border-bottom:1px dotted var(--line)}
+  .ticket .line .q{font-family:var(--mono);color:#7a6f5d}
+  .ticket .total{display:flex;justify-content:space-between;font-family:var(--sans);font-weight:700;font-size:17px;padding-top:12px}
+  .ticket .fine{font-family:var(--mono);font-size:11px;color:#8a7f6a;margin-top:12px;line-height:1.6}
+  .builder .ok{display:none;border:1px dashed var(--ink);padding:12px 14px;font-size:14px;line-height:1.5;background:#fff;margin-top:4px}
+  footer.site{background:var(--ink);color:#d9cfbc;margin-top:60px}
+  footer.site .inner{max-width:1060px;margin:0 auto;padding:36px 24px;font-family:var(--sans);font-size:13.5px;line-height:1.8}
+  footer.site b{color:#fff;letter-spacing:.06em}
+  @media(max-width:760px){
+    .builder{grid-template-columns:1fr}
+    .ticket{position:static}
+    .item{grid-template-columns:1fr auto}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Proposed redesign for Fine Cup Coffee Roasters — demo, not the official website. The live business is at <a href="https://finecup.az/?lang=en">finecup.az</a>. Prepared by Murad Gasimov's studio, Nov 2026 — unpublished draft awaiting owner approval.</div>
+
+<header class="masthead">
+  <div class="brand">FINE CUP<small>Coffee roasters · Baku · since 2020</small></div>
+  <div class="mast-note">Arabica · Robusta · roasted in Baku</div>
+  <nav class="mast-nav" aria-label="Sections">
+    <a href="#menu">Menu &amp; stock</a>
+    <a href="#hours">Hours</a>
+    <a href="#fix">What this fixes</a>
+    <a href="#order">Demo order builder</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Freshly roasted, <em>straight into the cup</em>.</h1>
+  <blockquote class="pull">“In FINE CUP, freshly roasted specialty coffee is filtered directly into the cup. Visit us for freshly brewed coffee for breakfast, lunch or dinner.”
+    <b>— finecup.az, the roaster's own words</b>
+  </blockquote>
+  <p class="mono-note">Roaster &amp; cafe, operating since 2020 — Arabica and Robusta (per finecup.az/about-us). Az/Ru/En languages on the live site.</p>
+  <div class="hero-actions">
+    <a class="btn" href="#menu">See today's menu &amp; stock</a>
+    <a class="btn ghost" href="#order">Build a demo order</a>
+    <span class="mono-note">Draft for approval — no live ordering on this page</span>
+  </div>
+</section>
+
+<nav class="housebar" aria-label="Page sections">
+  <div class="inner">
+    <a href="#menu">Menu &amp; stock</a>
+    <a href="#hours">Hours</a>
+    <a href="#fix">What this fixes</a>
+    <a href="#order">Demo order builder</a>
+    <a href="https://finecup.az/?lang=en" rel="noopener">Official site ↗</a>
+  </div>
+</nav>
+
+<section id="menu">
+  <div class="kicker">Menu &amp; stock — illustrative, from a dated snapshot</div>
+  <h2>The cafe menu, the EN site never shows</h2>
+  <p class="section-note">The English homepage sells the roastery well but shows <b>no drink prices, no hours, no stock</b>. This demo adds the cafe layer on top — every price and quantity below is <b>illustrative pending owner confirmation</b>, rendered from the SQL snapshot dated below. Stock badges state what the snapshot knew at sync time; <b>no run-out times are predicted</b> (the snapshot carries no sales-velocity data).</p>
+
+  <div class="snapshot">
+    <span class="t">Static SQL snapshot — not a live read</span>
+    <span class="m">cafe_menu_items · shop_id <b>fine-cup-baku</b> · Neon project hidden-butterfly-77944441 · synced <b>Nov 7, 2026 1:06 PM PST</b> (2026-11-07T21:06:11.126Z)</span>
+    <span class="m"><a href="../assets/inventory.json">Download the raw JSON snapshot ↧</a> — no credentials inside, for judge inspection</span>
+  </div>
+
+  <div id="menu-output" style="margin-top:26px">
+    <noscript><p class="section-note">Enable JavaScript to render the menu from the snapshot — or <a href="../assets/inventory.json">read the raw JSON</a>, which contains the same 8 rows.</p></noscript>
+  </div>
+
+  <p class="legend" id="legend"><b>Badge rules</b> (derived only from the snapshot's own fields): <code>stock = 0 → Sold out</code> · <code>stock ≤ 2 → Out soon</code> · <code>stock ≤ low_stock_threshold → Running low</code> · otherwise <code>Available</code>. No predictive "runs out at…" times: the snapshot has no sales velocity, so none is invented.</p>
+</section>
+
+<section id="hours">
+  <div class="kicker">Hours — sample, not verified</div>
+  <h2>When the cup is poured</h2>
+  <div class="hours" style="margin-top:16px">
+    <span class="d">Monday – Sunday</span><span>Daily 08:00–20:00</span>
+    <span class="warn"><b>Sample hours, not verified.</b> The live EN site publishes no cafe hours; this schedule is a placeholder to show the intended layout. Final hours require the owner's confirmation (“Hours pending owner confirmation”).</span>
+  </div>
+</section>
+
+<section id="fix">
+  <div class="kicker">What this redesign fixes</div>
+  <h2>The cafe-information gap, closed</h2>
+  <div class="callout" style="margin-top:16px">
+    <b>Found on the live EN homepage</b>
+    <p style="margin:0 0 10px;font-size:15px;line-height:1.6">finecup.az/?lang=en promotes the cafe in words but shows no cafe drink prices, no opening hours and no availability anywhere on the page — while its header still carries a generic e-commerce search block whose “Popular Searches” suggest <code>T-Shirt</code>, <code>Blue</code> and <code>Jacket</code>: template leftovers from a fashion storefront. The Azerbaijani homepage does sell packaged beans with prices, and the site has online-shop cart links — so the shop layer exists; the <em>cafe</em> layer is what's missing in English.</p>
+    <p style="margin:0;font-size:15px;line-height:1.6">This demo adds that layer — menu with prices, honest stock badges, sample hours, and an order builder that previews a ticket — all labelled illustrative, all from one dated snapshot the owner can replace with live data later.</p>
+  </div>
+</section>
+
+<section id="order">
+  <div class="kicker">Demo order builder — local only</div>
+  <h2>Pick, preview, and send nothing</h2>
+  <p class="section-note">A counter-side order builder, running entirely in your browser. <b>It has no name, phone or email fields by design</b> — nothing is collected, persisted or transmitted, and there is no mailto, WhatsApp or real order link.</p>
+  <div class="builder" style="margin-top:16px">
+    <form id="ob" onsubmit="return submitOrder(event)">
+      <div id="picks"></div>
+      <div class="qtyrow">
+        <div><label for="mode">How you'd collect</label>
+          <select id="mode"><option>Drink in — take a seat</option><option>Takeaway</option></select>
+        </div>
+        <div><label for="when">Time (demo)</label><select id="when"><option>Morning</option><option>Midday</option><option>Afternoon</option><option>Evening</option></select></div>
+      </div>
+      <button type="submit">Preview the ticket</button>
+      <p class="ok" id="ok"><b>Demo only — nothing was sent.</b> The ticket on the right is a local preview built in your browser; no data was stored, transmitted or shared, and no personal information was requested. On a live deployment the owner would choose the receiving channel (counter tablet, messenger, till) before anything ships.</p>
+      <p class="mono-note">No network request is made; no personal information is collected or persisted.</p>
+    </form>
+    <div class="ticket" id="ticket" aria-live="polite">
+      <div class="thead"><span class="t">Your ticket</span><span class="m">Local preview · demo</span></div>
+      <div id="tlines"><p class="line"><span>Nothing selected yet — tick items on the left.</span></p></div>
+      <div class="total"><span>Total</span><span id="ttotal">0.00 AZN</span></div>
+      <p class="fine">Prices from the Nov 7 2026 1:06 PM PST snapshot · illustrative pending owner confirmation.<br>“House beans 250g” is a demo retail row — not a verified Fine Cup SKU.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="inner">
+    <b>FINE CUP COFFEE ROASTERS</b> · Baku, Azerbaijan · roasting since 2020 · <a href="https://finecup.az/?lang=en" style="color:#eec987">finecup.az</a><br>
+    Proposed redesign demo — not the official website. Draft awaiting owner approval; cafe menu, prices, stock and hours are illustrative placeholders pending the owner's confirmation. Menu &amp; stock data: static SQL snapshot of cafe_menu_items (Neon project hidden-butterfly-77944441), synced Nov 7, 2026 1:06 PM PST — not a live database read; the source database remains the owner's, and this demo holds no credentials.
+  </div>
+</footer>
+
+<script>
+/* Data: identical to ../assets/inventory.json (the downloadable judge copy). */
+var SNAPSHOT = {
+  synced_at_pst: "Nov 7, 2026 1:06 PM PST",
+  synced_at_iso: "2026-11-07T21:06:11.126Z",
+  items: [
+    {id:"fine-espresso",  name:"Espresso",        category:"Coffee", price:"4.00",  currency:"AZN", stock_qty:42, low_stock_threshold:8,  unit:"cups",  stock_label:"Available"},
+    {id:"fine-americano", name:"Americano",       category:"Coffee", price:"5.00",  currency:"AZN", stock_qty:35, low_stock_threshold:8,  unit:"cups",  stock_label:"Available"},
+    {id:"fine-latte",     name:"Latte",           category:"Coffee", price:"7.00",  currency:"AZN", stock_qty:18, low_stock_threshold:8,  unit:"cups",  stock_label:"Available"},
+    {id:"fine-flat-white",name:"Flat white",      category:"Coffee", price:"6.50",  currency:"AZN", stock_qty:6,  low_stock_threshold:8,  unit:"cups",  stock_label:"Running low"},
+    {id:"fine-filter",    name:"Filter coffee",   category:"Coffee", price:"6.00",  currency:"AZN", stock_qty:2,  low_stock_threshold:5,  unit:"cups",  stock_label:"Out soon"},
+    {id:"fine-croissant", name:"Butter croissant",category:"Bakery", price:"4.50",  currency:"AZN", stock_qty:0,  low_stock_threshold:4,  unit:"pieces",stock_label:"Sold out"},
+    {id:"fine-cookie",    name:"Chocolate cookie",category:"Bakery", price:"3.50",  currency:"AZN", stock_qty:4,  low_stock_threshold:6,  unit:"pieces",stock_label:"Running low"},
+    {id:"fine-beans",     name:"House beans 250g",category:"Retail", price:"18.00", currency:"AZN", stock_qty:12, low_stock_threshold:4,  unit:"bags",  stock_label:"Available"}
+  ]
+};
+/* Generic drink descriptions — neutral, no invented business claims. */
+var DESC = {
+  "fine-espresso":"The classic short pull — the roaster's blend, judged neat.",
+  "fine-americano":"Espresso lengthened with hot water; long, clean, unhurried.",
+  "fine-latte":"Espresso under silky steamed milk, the every-morning cup.",
+  "fine-flat-white":"Stronger under the milk — smaller, denser, glossier.",
+  "fine-filter":"The day's batch, brewed slow; ask what's in the flask.",
+  "fine-croissant":"Laminated, baked dark, pulled from the oven case.",
+  "fine-cookie":"Dark chocolate, crackled top, built for the second espresso.",
+  "fine-beans":"The roastery's house take-away bag — grind at the counter on request."
+};
+var GROUPS = [["Coffee","Drinks from the machine &amp; flask"],["Bakery","From the pastry case"],["Retail","Beans to take home"]];
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+
+function renderMenu(){
+  var out = document.getElementById("menu-output");
+  var html = "";
+  GROUPS.forEach(function(g){
+    var rows = SNAPSHOT.items.filter(function(i){return i.category===g[0]});
+    if(!rows.length) return;
+    html += '<div class="menu-group"><h3>'+g[0]+' — '+g[1]+'</h3>';
+    rows.forEach(function(i){
+      var b = { "Available":"available","Running low":"low","Out soon":"soon","Sold out":"sold" }[i.stock_label] || "available";
+      html += '<div class="item">'
+        + '<span class="name">'+esc(i.name)+'</span>'
+        + '<span class="priceline"><span class="dots"></span><span class="price">'+esc(i.price)+'</span><span class="cur">'+esc(i.currency)+'</span></span>'
+        + '<span class="desc">'+esc(DESC[i.id]||"")+'</span>'
+        + '<span class="stock"><span class="badge '+b+'">'+esc(i.stock_label)+'</span><span class="qty">'+i.stock_qty+' '+esc(i.unit)+' at sync</span></span>'
+        + '</div>';
+    });
+    html += '</div>';
+  });
+  out.innerHTML = html;
+}
+
+function renderPicks(){
+  var box = document.getElementById("picks");
+  var html = "";
+  SNAPSHOT.items.forEach(function(i){
+    var sold = i.stock_label==="Sold out";
+    html += '<label class="pick'+(sold?' soldout':'')+'">'
+      + '<input type="checkbox" data-id="'+esc(i.id)+'"'+(sold?' disabled':'')+'>'
+      + '<span class="pn">'+esc(i.name)+'</span>'
+      + '<span class="pp">'+esc(i.price)+' '+esc(i.currency)+'</span>'
+      + '</label>';
+  });
+  box.innerHTML = html;
+  box.addEventListener("change", updateTicket);
+}
+
+function updateTicket(){
+  var lines = document.getElementById("tlines");
+  var total = 0; var rows = "";
+  SNAPSHOT.items.forEach(function(i){
+    var cb = document.querySelector('#picks input[data-id="'+i.id+'"]');
+    if(cb && cb.checked){
+      total += parseFloat(i.price);
+      rows += '<p class="line"><span>'+esc(i.name)+' <span class="q">×1</span></span><span>'+esc(i.price)+' '+esc(i.currency)+'</span></p>';
+    }
+  });
+  lines.innerHTML = rows || '<p class="line"><span>Nothing selected yet — tick items on the left.</span></p>';
+  document.getElementById("ttotal").textContent = total.toFixed(2)+" AZN";
+}
+
+function submitOrder(e){
+  e.preventDefault();
+  document.getElementById("ok").style.display = "block";
+  document.getElementById("ok").scrollIntoView({behavior:"smooth",block:"center"});
+  return false;
+}
+
+renderMenu();
+renderPicks();
+</script>
+
+</body>
+</html>

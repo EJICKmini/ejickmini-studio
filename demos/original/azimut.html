@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azimut Travel — Proposed Redesign (Demo, not the official website)</title>
+<style>
+  /* Alpine operator redesign — Advantour/Kandoo/KE lessons: departures-style data table,
+     trip codes and grades, written-program promise, contour-line art. No stock canyons,
+     no gradients, no countdowns. */
+  :root{
+    --ink:#1d2a24; --paper:#f2f1ea; --cream:#faf9f2; --pine:#1e3d31; --line:#d5d2c2;
+    --accent:#b0522d; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif; --serif:Georgia,"Times New Roman",serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--serif);color:var(--ink);background:var(--paper);line-height:1.55}
+  .demo-banner{position:sticky;top:0;z-index:50;background:var(--pine);color:#e9efe7;text-align:center;
+    font-family:var(--sans);font-size:12.5px;padding:8px 14px;line-height:1.5}
+  .demo-banner a{color:#f0c987;text-decoration:underline;text-underline-offset:2px}
+  a{color:inherit}
+  .masthead{max-width:1060px;margin:0 auto;padding:34px 24px 18px;display:flex;flex-wrap:wrap;
+    align-items:baseline;justify-content:space-between;gap:8px 20px;border-bottom:2px solid var(--ink)}
+  .brand{font-size:clamp(28px,5.4vw,44px);font-weight:700;letter-spacing:.1em;line-height:1}
+  .brand small{display:block;font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.3em;
+    text-transform:uppercase;color:#6b6a5c;margin-top:8px}
+  .mast-langs{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:#6b6a5c;white-space:nowrap}
+  .mast-nav{width:100%;font-family:var(--sans);font-size:13px}
+  .mast-nav a{color:#4b4a3e;text-decoration:underline;text-underline-offset:3px;margin-right:14px}
+  .mast-nav a:hover{color:var(--accent)}
+  .hero{max-width:1060px;margin:0 auto;padding:50px 24px 38px;display:grid;gap:24px}
+  .hero h1{font-size:clamp(38px,7vw,72px);line-height:.99;letter-spacing:-.015em;font-weight:700;margin:0}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero .standfirst{font-size:17px;color:#4b4a3e;max-width:66ch}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .btn{display:inline-block;font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    padding:13px 22px;background:var(--ink);color:var(--cream);text-decoration:none;border:1px solid var(--ink)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.ghost:hover{background:transparent;color:var(--accent)}
+  .mono-note{font-family:var(--mono);font-size:11.5px;color:#85836f;letter-spacing:.04em}
+  nav.housebar{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  nav.housebar .inner{max-width:1060px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:2px 26px}
+  nav.housebar a{font-family:var(--sans);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;padding:12px 0;display:inline-block;color:#4b4a3e}
+  nav.housebar a:hover{color:var(--accent)}
+  section{max-width:1060px;margin:0 auto;padding:52px 24px 8px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2{font-size:clamp(26px,4.6vw,38px);line-height:1.08;letter-spacing:-.01em;margin-bottom:10px}
+  .section-note{max-width:66ch;color:#4b4a3e;margin-bottom:26px}
+  /* trip index — operator data table */
+  .trips{border-top:2px solid var(--ink)}
+  .trip{display:grid;grid-template-columns:88px 1.35fr 1fr 150px;gap:18px;align-items:baseline;
+    padding:20px 0;border-bottom:1px solid var(--line)}
+  .trip .code{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent)}
+  .trip h3{font-size:22px;letter-spacing:-.01em;margin:0 0 4px}
+  .trip .grade{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    border:1px solid var(--ink);padding:2px 8px;display:inline-block;margin-top:6px}
+  .trip .facts{font-size:14.5px;color:#4b4a3e}
+  .trip .facts span{display:block;margin-bottom:4px}
+  .trip .facts b{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#85836f}
+  .trip .cost{text-align:right;font-family:var(--sans)}
+  .trip .cost .num{font-size:24px;font-weight:700;letter-spacing:-.02em}
+  .trip .cost .cur{font-family:var(--mono);font-size:11px;color:#85836f;display:block;margin-top:2px}
+  .trip .cost .tbc{font-family:var(--mono);font-size:11px;color:var(--accent);display:block;margin-top:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-family:var(--sans);font-size:13px;color:#4b4a3e}
+  .legend b{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  /* day plan — itinerary sheet */
+  .sheet{border:1.5px solid var(--ink);background:var(--cream);max-width:720px}
+  .sheet .head{border-bottom:1.5px solid var(--ink);padding:14px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;align-items:baseline}
+  .sheet .head .t{font-weight:700;font-size:19px}
+  .sheet .head .m{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#85836f;text-transform:uppercase}
+  .sheet .row{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:13px 20px;border-bottom:1px solid var(--line);font-size:15px}
+  .sheet .row:last-child{border-bottom:0}
+  .sheet .row .d{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--pine);padding-top:2px}
+  .sheet .row p{margin:0;color:#4b4a3e}
+  .sheet .row i{color:#85836f;font-family:var(--mono);font-style:normal;font-size:12px}
+  .sheet .fine{padding:12px 20px;font-family:var(--sans);font-size:12.5px;color:#6b6a5c;border-top:1.5px solid var(--ink)}
+  /* contour map figure */
+  .mapbox{margin-top:22px;border:1px solid var(--ink);background:var(--cream);padding:18px}
+  .mapbox svg{display:block;width:100%;height:auto}
+  .mapbox figcaption{font-family:var(--mono);font-size:11px;color:#85836f;margin-top:10px;letter-spacing:.04em}
+  /* valve callout */
+  .callout{border:1.5px solid var(--accent);background:var(--cream);padding:18px 20px;max-width:780px}
+  .callout b{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+  .callout code{font-family:var(--mono);font-size:13px;background:#eee7d6;padding:1px 5px}
+  /* FAQ */
+  .faq{border-top:2px solid var(--ink)}
+  .faq details{border-bottom:1px solid var(--line);padding:14px 2px}
+  .faq summary{cursor:pointer;font-family:var(--sans);font-size:15.5px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:14px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+  .faq details[open] summary::after{content:"\2013"}
+  .faq details p{margin:10px 0 0;font-size:15px;color:#4b4a3e;max-width:62ch}
+  /* enquiry */
+  .enquiry{display:grid;grid-template-columns:.95fr 1.05fr;gap:34px;align-items:start}
+  .enquiry form{border:1.5px solid var(--ink);background:var(--cream);padding:22px;display:grid;gap:14px;font-family:var(--sans)}
+  .enquiry label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5f5d4d;display:block;margin-bottom:4px}
+  .enquiry input,.enquiry select{padding:11px;border:1px solid #b5b1a0;background:#fff;font-size:15px;width:100%;font-family:var(--sans)}
+  .enquiry .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .enquiry button{background:var(--ink);color:var(--cream);border:1px solid var(--ink);padding:13px 20px;
+    font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .enquiry button:hover{background:var(--accent);border-color:var(--accent)}
+  .enquiry .ok{display:none;border:1px dashed var(--ink);padding:12px 14px;font-size:14px;line-height:1.5;background:#fff}
+  .contact-side p{margin:0 0 14px;color:#4b4a3e;font-size:15.5px}
+  footer.site{background:var(--pine);color:#cfd8cc;margin-top:60px}
+  footer.site .inner{max-width:1060px;margin:0 auto;padding:36px 24px;font-family:var(--sans);font-size:13.5px;line-height:1.8}
+  footer.site b{color:#fff;letter-spacing:.06em}
+  @media(max-width:760px){
+    .trip{grid-template-columns:1fr;gap:6px;padding:18px 0}
+    .trip .code{order:-1}
+    .trip .cost{text-align:left}
+    .sheet .row{grid-template-columns:1fr;gap:4px}
+    .enquiry{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Proposed redesign for Azimut Travel — demo, not the official website. The live operator is at <a href="https://azimut-travel.kz/">azimut-travel.kz</a>. Prepared by Murad Gasimov's studio, Nov 2026 — unpublished draft awaiting client approval.</div>
+
+<header class="masthead">
+  <div class="brand">AZIMUT TRAVEL<small>Almaty · adventure tours · group &amp; individual</small></div>
+  <div class="mast-langs">RU · EN — bilingual-ready demo</div>
+  <nav class="mast-nav" aria-label="Sections">
+    <a href="#trips">Trip index</a>
+    <a href="#plan">A sample program</a>
+    <a href="#fix">The form problem</a>
+    <a href="#faq">Practicalities</a>
+    <a href="#enquire">Enquiries</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Canyons, lakes, <em>and a plan in writing</em>.</h1>
+  <p class="standfirst">Azimut Travel runs group and individual journeys from Almaty — Charyn Canyon, Kolsay, Kaindy. The operator's promise, per its own site, is a written program with confirmed terms. This redesign makes that promise visible on every screen: trip codes, honest "dates on request" instead of fake countdowns, and an itinerary sheet you can read before you ever pay.</p>
+  <div class="hero-actions">
+    <a class="btn" href="#trips">Browse the trip index</a>
+    <a class="btn ghost" href="#enquire">Ask for the current program</a>
+    <span class="mono-note">Draft for approval — no live bookings from this page</span>
+  </div>
+</section>
+
+<nav class="housebar" aria-label="Page sections">
+  <div class="inner">
+    <a href="#trips">Trips</a>
+    <a href="#plan">Sample program</a>
+    <a href="#fix">The form problem</a>
+    <a href="#faq">Practicalities</a>
+    <a href="#enquire">Enquiries</a>
+    <a href="../promo/azimut/">Draft promo concept</a>
+    <a href="https://azimut-travel.kz/" rel="noopener">Official site ↗</a>
+  </div>
+</nav>
+
+<section id="trips">
+  <div class="kicker">Trip index — illustrative</div>
+  <h2>Three routes, coded like a real catalogue</h2>
+  <p class="section-note">Each journey gets a code, a grade and a plain statement of what is included. <b>All prices are illustrative placeholders pending the operator's confirmation</b> — dates and programs are always confirmed in writing by the operator, never by a countdown timer.</p>
+  <div class="trips">
+    <div class="trip">
+      <span class="code">AZ-01</span>
+      <div><h3>Charyn Canyon — day trip</h3><span class="grade">Grade · easy walking</span></div>
+      <div class="facts">
+        <span><b>Route</b> — Valley of Castles walk, viewpoints, picnic stop</span>
+        <span><b>Pace</b> — one day, back in Almaty by evening</span>
+      </div>
+      <div class="cost"><span class="num">12 000 ₸</span><span class="cur">per person · sample figure</span><span class="tbc">operator confirms</span></div>
+    </div>
+    <div class="trip">
+      <span class="code">AZ-02</span>
+      <div><h3>Kolsay &amp; Kaindy — 2 days</h3><span class="grade">Grade · moderate hike</span></div>
+      <div class="facts">
+        <span><b>Route</b> — both lakes, guesthouse night in Saty village</span>
+        <span><b>Pace</b> — two days, hike as far as the group agrees</span>
+      </div>
+      <div class="cost"><span class="num">65 000 ₸</span><span class="cur">per person · sample figure</span><span class="tbc">operator confirms</span></div>
+    </div>
+    <div class="trip">
+      <span class="code">AZ-03</span>
+      <div><h3>Almaty region — 3 days</h3><span class="grade">Grade · moderate-plus</span></div>
+      <div class="facts">
+        <span><b>Route</b> — Charyn + Kolsay lakes + Kaindy, two nights in Saty</span>
+        <span><b>Pace</b> — three days, unhurried, weather-checked daily</span>
+      </div>
+      <div class="cost"><span class="num">89 500 ₸</span><span class="cur">per person · sample figure</span><span class="tbc">operator confirms</span></div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><b>EZ</b> marked trails, any fitness</span>
+    <span><b>MOD</b> full walking days, poles help</span>
+    <span><b>MOD+</b> altitude + longer days</span>
+    <span>Grades are explained before booking — never discovered en route</span>
+  </div>
+  <figure class="mapbox">
+    <svg viewBox="0 0 900 240" role="img" aria-label="Stylised contour map from Almaty to Charyn Canyon, Kolsay and Kaindy lakes">
+      <rect width="900" height="240" fill="#f2f1ea"/>
+      <g fill="none" stroke="#b9c2a8" stroke-width="1.4">
+        <path d="M60 210 q40 -60 30 -120 q-6 -40 18 -70"/>
+        <path d="M110 220 q50 -70 40 -140 q-8 -50 20 -90"/>
+        <path d="M160 230 q60 -80 50 -160 q-10 -60 24 -100"/>
+        <path d="M210 238 q70 -90 60 -180 q-12 -70 26 -112"/>
+        <path d="M260 244 q80 -100 70 -200 q-14 -80 30 -124"/>
+      </g>
+      <g fill="none" stroke="#8ea88f" stroke-width="1.4">
+        <path d="M620 230 q60 -50 90 -110 q24 -50 60 -80"/>
+        <path d="M680 236 q66 -56 98 -122 q26 -54 62 -86"/>
+        <path d="M740 240 q72 -62 106 -134 q28 -58 54 -92"/>
+      </g>
+      <circle cx="430" cy="180" r="7" fill="#b0522d"/>
+      <text x="430" y="164" text-anchor="middle" font-family="Georgia" font-weight="bold" font-size="16" fill="#1d2a24">ALMATY</text>
+      <path d="M430 180 C 500 170 560 150 640 120" fill="none" stroke="#b0522d" stroke-width="2" stroke-dasharray="6 5"/>
+      <path d="M430 180 C 540 186 640 190 740 176" fill="none" stroke="#b0522d" stroke-width="2" stroke-dasharray="6 5"/>
+      <path d="M430 180 C 480 130 540 90 610 60" fill="none" stroke="#b0522d" stroke-width="2" stroke-dasharray="6 5"/>
+      <text x="655" y="112" font-family="Georgia" font-size="14" fill="#1d2a24">Charyn Canyon</text>
+      <text x="752" y="170" font-family="Georgia" font-size="14" fill="#1d2a24">Kaindy</text>
+      <text x="690" y="196" font-family="Georgia" font-size="14" fill="#1d2a24">Kolsay</text>
+      <text x="620" y="52" font-family="Georgia" font-size="14" fill="#1d2a24">Kolsay lakes ↑</text>
+      <text x="60" y="34" font-family="Helvetica" font-size="11" fill="#6b6a5c">Tian Shan foothills — contour illustration</text>
+    </svg>
+    <figcaption>Stylised contour diagram of the three destinations from Almaty — a drawing, not a route map, and not a promised single-day itinerary.</figcaption>
+  </figure>
+</section>
+
+<section id="plan">
+  <div class="kicker">A sample program — illustrative</div>
+  <h2>The itinerary sheet, before you pay</h2>
+  <p class="section-note">The operator's own promise is a written program with confirmed terms. This is what such a sheet looks like when the site shows it up front. <b>Every line below is a placeholder</b> for the operator's real confirmed program.</p>
+  <div class="sheet">
+    <div class="head"><span class="t">AZ-02 · Kolsay &amp; Kaindy — 2 days</span><span class="m">Sample sheet · not an offer</span></div>
+    <div class="row"><span class="d">Day 1</span><p>Almaty hotel pickup at a confirmed hour · drive to Kolsay lakes · first hike as far as the group's pace allows · night in a Saty guesthouse. <i>Times fixed in the written program.</i></p></div>
+    <div class="row"><span class="d">Day 2</span><p>Morning transfer to Kaindy Lake · sunken-forest viewpoint walk · return drive with a stops-you-choose break · Almaty by evening. <i>Weather re-check before departure.</i></p></div>
+    <div class="row"><span class="d">Included</span><p>Transport from Almaty, guesthouse night, meals as listed in the operator's written program, guide. <i>The operator confirms the exact list.</i></p></div>
+    <div class="row"><span class="d">Not incl.</span><p>Items the operator's written program lists as optional — gear rental, personal expenses. <i>Stated before payment, per the operator's own policy.</i></p></div>
+    <div class="fine">Sample structure for demonstration. The operator confirms season, accessibility, itinerary and safety guidance for every departure.</div>
+  </div>
+</section>
+
+<section id="fix">
+  <div class="kicker">What this redesign fixes</div>
+  <h2>The pipe-valve form, retired</h2>
+  <div class="callout" style="margin-top:16px">
+    <b>Found on the live site</b>
+    <p style="margin:0;font-size:15px;line-height:1.6">On azimut-travel.kz's tour pages, the "Get program and cost" inquiry forms are labeled <code>Подбор запорно-регулирующей арматуры</code> — "selection of shut-off and control valves". Leftover fields from an industrial-pipes website template ask every traveller to configure a valve instead of a trip. This demo replaces them with a traveller form; a real deployment would keep the operator's existing WhatsApp channel as the delivery route.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="kicker">Practicalities — draft answers</div>
+  <h2>Questions every traveller asks</h2>
+  <p class="section-note">Each answer is a <b>draft for the operator to confirm or correct</b> — the redesign proposes the structure, the operator owns the facts.</p>
+  <div class="faq">
+    <details><summary>Do you pick up from my hotel?</summary><p><b>Draft answer:</b> yes, with the exact meeting point and time confirmed the day before departure. [Placeholder — confirm with operator]</p></details>
+    <details><summary>Is the Kolsay-2 hike included?</summary><p><b>Draft answer:</b> on 2–3 day trips the pace and turnaround point are agreed with the group's experience first. [Placeholder — confirm with operator]</p></details>
+    <details><summary>What should I bring?</summary><p><b>Draft answer:</b> layers, a rain shell, sturdy shoes; guesthouse bedding is provided. A packing list ships with the written program. [Placeholder — confirm with operator]</p></details>
+    <details><summary>How do I pay?</summary><p><b>Draft answer:</b> bank transfer or card link, with full terms in the written program — never a payment before the program is confirmed. [Placeholder — confirm with operator]</p></details>
+    <details><summary>What if the weather turns?</summary><p><b>Draft answer:</b> the route is re-planned or the affected parts refunded per the written terms — you are never left guessing at the trailhead. [Placeholder — confirm with operator]</p></details>
+    <details><summary>Do you run private groups?</summary><p><b>Draft answer:</b> yes, from one traveller; per-person pricing falls as the group grows, shown transparently in the program. [Placeholder — confirm with operator]</p></details>
+  </div>
+</section>
+
+<section id="enquire">
+  <div class="kicker">Enquiries — demo only</div>
+  <h2>Ask for the current program</h2>
+  <p class="section-note">A traveller's form, in the traveler's language, replacing the pipe-valve template. <b>This demo sends nothing</b> — the confirmation below is the whole behavior; no data is stored or transmitted.</p>
+  <div class="enquiry">
+    <div class="contact-side">
+      <p>Prefer to talk? On the live site this column carries the operator's own phone and email, with the enquiry form beside it — and the form's delivery route stays the channel the team already answers (WhatsApp on the live deployment), opened with your request pre-typed.</p>
+      <p class="mono-note" style="font-family:var(--mono);font-size:11.5px;color:#85836f">Draft for approval — no contact details are invented here; the live site's published phone/email would be restored on launch.</p>
+      <p style="margin-top:18px"><a class="btn ghost" href="https://azimut-travel.kz/" rel="noopener">Visit the official site ↗</a></p>
+      <p style="margin-top:14px"><a href="../promo/azimut/" style="font-family:var(--mono);font-size:12px;color:var(--accent)">See the draft promo concept (unpublished) →</a></p>
+    </div>
+    <form id="enq" onsubmit="event.preventDefault();document.getElementById('ok').style.display='block';document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'})">
+      <div class="two">
+        <div><label for="d">Start date</label><input id="d" type="date" required></div>
+        <div><label for="g">Guests</label><input id="g" type="number" min="1" max="16" value="2" required></div>
+      </div>
+      <div><label for="t">Trip</label><select id="t"><option>AZ-01 · Charyn day trip</option><option>AZ-02 · Kolsay &amp; Kaindy — 2 days</option><option>AZ-03 · Almaty region — 3 days</option><option>Not sure yet — advise me</option></select></div>
+      <div><label for="l">Guide language</label><select id="l"><option>Russian</option><option>English</option><option>Transport only</option></select></div>
+      <div><label for="n">Your name</label><input id="n" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+      <div><label for="c">Contact (phone or email)</label><input id="c" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+      <button type="submit">Preview the request</button>
+      <p class="ok" id="ok"><b>Demo only — nothing was sent.</b> No data was stored, transmitted or shared. On the live site this request would open the operator's own messaging channel, pre-typed and ready to send yourself.</p>
+      <p class="mono-note" style="font-family:var(--mono);font-size:11.5px;color:#85836f">No network request is made; no personal information is collected or persisted.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="inner">
+    <b>AZIMUT TRAVEL</b> · Almaty, Kazakhstan · group &amp; individual tours · Charyn · Kolsay · Kaindy<br>
+    Proposed redesign demo — not the official website. Draft awaiting client approval; sample figures and draft answers are placeholders pending the operator's confirmation.
+  </div>
+</footer>
+
+</body>
+</html>

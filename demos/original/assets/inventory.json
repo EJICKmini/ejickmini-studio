@@ -1,0 +1,18 @@
+{
+  "snapshot_of": "cafe_menu_items table, Neon project hidden-butterfly-77944441",
+  "shop_id": "fine-cup-baku",
+  "synced_at_pst": "Nov 7, 2026 1:06 PM PST",
+  "synced_at_iso": "2026-11-07T21:06:11.126Z",
+  "disclaimer": "STATIC SNAPSHOT EXPORTED FROM NEON SQL — not a live database read. Illustrative cafe menu, prices and stock; owner confirmation required. No time-to-empty predictions are made (no sales-velocity data in the snapshot).",
+  "label_rules": "stock_qty=0 => Sold out; stock_qty<=2 => Out soon; stock_qty<=low_stock_threshold => Running low; otherwise Available",
+  "items": [
+    {"id":"fine-croissant","name":"Butter croissant","category":"Bakery","price":"4.50","currency":"AZN","stock_qty":0,"low_stock_threshold":4,"unit":"pieces","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Sold out"},
+    {"id":"fine-cookie","name":"Chocolate cookie","category":"Bakery","price":"3.50","currency":"AZN","stock_qty":4,"low_stock_threshold":6,"unit":"pieces","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Running low"},
+    {"id":"fine-americano","name":"Americano","category":"Coffee","price":"5.00","currency":"AZN","stock_qty":35,"low_stock_threshold":8,"unit":"cups","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Available"},
+    {"id":"fine-espresso","name":"Espresso","category":"Coffee","price":"4.00","currency":"AZN","stock_qty":42,"low_stock_threshold":8,"unit":"cups","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Available"},
+    {"id":"fine-filter","name":"Filter coffee","category":"Coffee","price":"6.00","currency":"AZN","stock_qty":2,"low_stock_threshold":5,"unit":"cups","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Out soon"},
+    {"id":"fine-flat-white","name":"Flat white","category":"Coffee","price":"6.50","currency":"AZN","stock_qty":6,"low_stock_threshold":8,"unit":"cups","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Running low"},
+    {"id":"fine-latte","name":"Latte","category":"Coffee","price":"7.00","currency":"AZN","stock_qty":18,"low_stock_threshold":8,"unit":"cups","notes":"Illustrative cafe menu, price and stock; owner confirmation required","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Available"},
+    {"id":"fine-beans","name":"House beans 250g","category":"Retail","price":"18.00","currency":"AZN","stock_qty":12,"low_stock_threshold":4,"unit":"bags","notes":"Illustrative product, price and stock; not a verified Fine Cup SKU","updated_at":"2026-11-07T21:06:06.364Z","stock_label":"Available"}
+  ]
+}

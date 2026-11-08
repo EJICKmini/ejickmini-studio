@@ -1,0 +1,11 @@
+console.error("do not run: superseded, see RUN_REPORT.md");
+process.exit(1);
+import '../load-env.js';
+import {createClient} from '@usenaive-sdk/managed-agents';
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+const path='/workspace/naive-hackathon/studio-crew/session-created.json';
+if(existsSync(path))throw new Error('Already created a bounded session; refusing another');
+const c=createClient({baseUrl:'https://api.vetta.sh',apiKey:process.env.NAIVE_ADMIN_API_KEY||process.env.NAIVE_API_KEY});
+const a=await c.agents.get('agt_jpba9m28jnc5784pjd876zgdjz');
+const s=await c.sessions.create({agent_id:a.id,agent_version:a.current_version,message:readFileSync('/workspace/naive-hackathon/studio-crew/first-message.txt','utf8'),budget_micro_usd:5000000,metadata:{purpose:'bounded-no-site-first-experiment',outreach:'forbidden',max_candidates:3,max_pages:1}}, {idempotencyKey:'studio-crew-first-original-20261107'});
+writeFileSync(path,JSON.stringify({id:s.id,agent_id:a.id,agent_version:a.current_version,status:s.status,stop_reason:s.stop_reason},null,2));console.log(readFileSync(path,'utf8'));

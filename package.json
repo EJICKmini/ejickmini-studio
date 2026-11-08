@@ -1,0 +1,24 @@
+{
+  "name": "naive-hackathon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "tsx smoke.ts",
+    "ceo": "tsx run-ceo.ts",
+    "shot": "tsx mobile-shot.ts",
+    "load-crm": "tsx load-crm.ts",
+    "stripe-setup": "tsx stripe-setup.ts"
+  },
+  "dependencies": {
+    "@mobilerun/sdk": "^6.1.0",
+    "@usenaive-sdk/managed-agents": "0.12.0",
+    "pg": "^8.13.1",
+    "stripe": "^23.1.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

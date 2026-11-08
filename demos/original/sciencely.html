@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sciencely. Baku — Proposed Redesign (Demo, not the official website)</title>
+<style>
+  /* Lab-notebook redesign — Kids Science Labs / Mad Science / Science Mom lessons:
+     outcome-led headline, credibility line, program taxonomy as protocols, age labels
+     like specimen tags. Grid paper, not gradient purple. */
+  :root{
+    --ink:#20241f; --paper:#f7f5ee; --card:#ffffff; --line:#d6d8c8;
+    --accent:#c25a1f; --lab:#275b46; --tagbg:#e9efdf;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,sans-serif; --serif:Georgia,"Times New Roman",serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--serif);color:var(--ink);background:var(--paper);line-height:1.55}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(#00000008 1px,transparent 1px),linear-gradient(90deg,#00000008 1px,transparent 1px);
+    background-size:28px 28px}
+  .demo-banner{position:sticky;top:0;z-index:50;background:var(--lab);color:#eaf1e9;text-align:center;
+    font-family:var(--sans);font-size:12.5px;padding:8px 14px;line-height:1.5}
+  .demo-banner a{color:#f0c987;text-decoration:underline;text-underline-offset:2px}
+  a{color:inherit}
+  .masthead,section,footer .inner,.hero{position:relative;z-index:1}
+  .masthead{max-width:1060px;margin:0 auto;padding:34px 24px 18px;display:flex;flex-wrap:wrap;
+    align-items:baseline;justify-content:space-between;gap:8px 20px;border-bottom:2px solid var(--ink)}
+  .brand{font-size:clamp(28px,5.4vw,46px);font-weight:700;letter-spacing:-.01em;line-height:1}
+  .brand .sci{color:var(--lab)}
+  .brand small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.26em;
+    text-transform:uppercase;color:#6d6f5e;margin-top:8px}
+  .mast-note{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:#6d6f5e;white-space:nowrap}
+  .mast-nav{width:100%;font-family:var(--sans);font-size:13px}
+  .mast-nav a{color:#4b4d40;text-decoration:underline;text-underline-offset:3px;margin-right:14px}
+  .mast-nav a:hover{color:var(--accent)}
+  .hero{max-width:1060px;margin:0 auto;padding:52px 24px 38px;display:grid;gap:22px}
+  .hero h1{font-size:clamp(38px,7vw,70px);line-height:.99;letter-spacing:-.015em;font-weight:700;margin:0}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero .standfirst{font-size:17px;color:#4b4d40;max-width:66ch}
+  .cred{display:flex;flex-wrap:wrap;gap:6px 28px;font-family:var(--mono);font-size:12.5px;color:#5f6152;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .btn{display:inline-block;font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    padding:13px 22px;background:var(--lab);color:#f2f5ee;text-decoration:none;border:1px solid var(--lab)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.ghost:hover{background:transparent;color:var(--accent)}
+  .mono-note{font-family:var(--mono);font-size:11.5px;color:#8a8c7a;letter-spacing:.04em}
+  nav.housebar{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  nav.housebar .inner{max-width:1060px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:2px 26px}
+  nav.housebar a{font-family:var(--sans);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;padding:12px 0;display:inline-block;color:#4b4d40}
+  nav.housebar a:hover{color:var(--accent)}
+  section{max-width:1060px;margin:0 auto;padding:52px 24px 8px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2{font-size:clamp(26px,4.6vw,38px);line-height:1.08;letter-spacing:-.01em;margin-bottom:10px}
+  .section-note{max-width:66ch;color:#4b4d40;margin-bottom:24px}
+  /* protocol cards */
+  .protocols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+  .proto{background:var(--card);border:1.5px solid var(--ink);padding:20px;position:relative}
+  .proto .spec{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;background:var(--tagbg);border:1px solid var(--lab);color:var(--lab);padding:3px 8px;transform:rotate(1.5deg)}
+  .proto .num{font-family:var(--mono);font-size:12px;color:#8a8c7a;display:block;margin-bottom:10px}
+  .proto h3{font-size:21px;letter-spacing:-.01em;margin-bottom:8px}
+  .proto p{font-size:14.5px;color:#4b4d40}
+  .proto .price{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px;font-family:var(--sans)}
+  .proto .price b{font-size:19px}
+  .proto .price i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--accent);display:block;margin-top:2px}
+  /* method row */
+  .method{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+  .method .step{border-top:2px solid var(--ink);padding-top:12px}
+  .method .step .n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--lab)}
+  .method .step h3{font-size:18px;margin:4px 0 6px}
+  .method .step p{font-size:14.5px;color:#4b4d40}
+  /* FAQ */
+  .faq{border-top:2px solid var(--ink)}
+  .faq details{border-bottom:1px solid var(--line);padding:14px 2px}
+  .faq summary{cursor:pointer;font-family:var(--sans);font-size:15.5px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:14px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-family:var(--mono);color:var(--accent)}
+  .faq details[open] summary::after{content:"\2013"}
+  .faq details p{margin:10px 0 0;font-size:15px;color:#4b4d40;max-width:62ch}
+  /* fix callout */
+  .callout{border:1.5px solid var(--accent);background:var(--card);padding:18px 20px;max-width:780px}
+  .callout b{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+  .callout code{font-family:var(--mono);font-size:13px;background:#efeee2;padding:1px 5px}
+  /* enquiry */
+  .enquiry{display:grid;grid-template-columns:.95fr 1.05fr;gap:34px;align-items:start}
+  .enquiry form{border:1.5px solid var(--ink);background:var(--card);padding:22px;display:grid;gap:14px;font-family:var(--sans)}
+  .enquiry label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5c5e4e;display:block;margin-bottom:4px}
+  .enquiry input,.enquiry select{padding:11px;border:1px solid #b4b6a4;background:#fff;font-size:15px;width:100%;font-family:var(--sans)}
+  .enquiry .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .enquiry button{background:var(--lab);color:#f2f5ee;border:1px solid var(--lab);padding:13px 20px;
+    font-family:var(--sans);font-size:13px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+  .enquiry button:hover{background:var(--accent);border-color:var(--accent)}
+  .enquiry .ok{display:none;border:1px dashed var(--ink);padding:12px 14px;font-size:14px;line-height:1.5;background:#fff}
+  .contact-side p{margin:0 0 14px;color:#4b4d40;font-size:15.5px}
+  footer.site{background:var(--lab);color:#d3ddd0;margin-top:60px}
+  footer.site .inner{max-width:1060px;margin:0 auto;padding:36px 24px;font-family:var(--sans);font-size:13.5px;line-height:1.8}
+  footer.site b{color:#fff;letter-spacing:.06em}
+  @media(max-width:760px){
+    .enquiry{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">Proposed redesign for Sciencely. Baku — demo, not the official website. The live business is at <a href="https://sciencely.az/">sciencely.az</a>. Prepared by Murad Gasimov's studio, Nov 2026 — unpublished draft awaiting client approval.</div>
+
+<header class="masthead">
+  <div class="brand"><span class="sci">Sciencely.</span> Baku<small>Hands-on natural science for children</small></div>
+  <div class="mast-note">RU · EN — trilingual-ready demo</div>
+  <nav class="mast-nav" aria-label="Sections">
+    <a href="#programs">Programs</a>
+    <a href="#method">The method</a>
+    <a href="#fix">What this fixes</a>
+    <a href="#faq">Parents' questions</a>
+    <a href="#signup">Sign-up</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Every big discovery starts with <em>«А почему?»</em></h1>
+  <p class="standfirst">Sciencely. Baku runs natural-science programs for children — weekend sessions, ongoing clubs and family activities, taught by young scientists. This redesign keeps the curiosity and adds the clarity parents need in any language: each program written up like a protocol card, with ages, format, duration and price in plain view.</p>
+  <div class="cred">
+    <span>Natural sciences for children</span>
+    <span>Young scientist educators</span>
+    <span>Clubs &amp; family activities</span>
+    <span>Baku, Azerbaijan</span>
+  </div>
+  <div class="hero-actions">
+    <a class="btn" href="#programs">Read the program cards</a>
+    <a class="btn ghost" href="#signup">Ask about current programs</a>
+    <span class="mono-note">Draft for approval — no live sign-up on this page</span>
+  </div>
+</section>
+
+<nav class="housebar" aria-label="Page sections">
+  <div class="inner">
+    <a href="#programs">Programs</a>
+    <a href="#method">The method</a>
+    <a href="#fix">What this fixes</a>
+    <a href="#faq">Parents' questions</a>
+    <a href="#signup">Sign-up</a>
+    <a href="../promo/sciencely/">Draft promo concept</a>
+    <a href="https://sciencely.az/" rel="noopener">Official site ↗</a>
+  </div>
+</nav>
+
+<section id="programs">
+  <div class="kicker">Programs — illustrative pricing</div>
+  <h2>Every program, priced in plain sight</h2>
+  <p class="section-note">The live site's program tiles show broken price placeholders — <code>ман.</code> with no number — so parents can't compare anything. Each card below is a <b>protocol-style draft</b>: the real format and age bands from sciencely.az, with <b>illustrative placeholder prices</b> the team would replace or remove at launch.</p>
+  <div class="protocols">
+    <div class="proto">
+      <span class="spec">Ages 7–14 · 2 h</span>
+      <span class="num">PROTOCOL 01</span>
+      <h3>Weekend science programs</h3>
+      <p>One-off themed sessions — from the periodic table to astronomy — where children run the experiments themselves and parents join a parallel science quiz.</p>
+      <div class="price"><b>35 AZN</b> / child <i>Sample price — confirm with the team</i></div>
+    </div>
+    <div class="proto">
+      <span class="spec">Ages 9–14 · weekly</span>
+      <span class="num">PROTOCOL 02</span>
+      <h3>Science clubs</h3>
+      <p>Ongoing small groups by age — chemistry, biology, physics — with real lab equipment and take-home experiment notes.</p>
+      <div class="price"><b>120 AZN</b> / month <i>Sample price — confirm with the team</i></div>
+    </div>
+    <div class="proto">
+      <span class="spec">Ages 7–14 · summer</span>
+      <span class="num">PROTOCOL 03</span>
+      <h3>Summer city laboratories</h3>
+      <p>Week-long day labs across Baku locations: one district, one theme per week, ending in a mini-conference for parents.</p>
+      <div class="price"><b>250 AZN</b> / week <i>Sample price — confirm with the team</i></div>
+    </div>
+  </div>
+  <p class="section-note" style="margin-top:16px">Program names, formats and the 2019 founding come from the team's own site; <b>all prices above are placeholders</b> — the live site's real prices, once published, drop straight into these slots.</p>
+</section>
+
+<section id="method">
+  <div class="kicker">The method — in three steps</div>
+  <h2>Not watching — doing</h2>
+  <p class="section-note">How a Sciencely session works, drafted from the team's own description of its format.</p>
+  <div class="method">
+    <div class="step"><span class="n">01 / Question</span><h3>Start with «почему?»</h3><p>A real phenomenon opens the session — something odd enough that the children ask the question before the educator does.</p></div>
+    <div class="step"><span class="n">02 / Experiment</span><h3>Kids run it themselves</h3><p>Every child handles the experiment in an equipped laboratory, with age-rated materials and lab safety equipment.</p></div>
+    <div class="step"><span class="n">03 / Explanation</span><h3>Name what they saw</h3><p>Only after observing: the science behind it, in words for their age — plus notes and experiments to take home.</p></div>
+  </div>
+</section>
+
+<section id="fix">
+  <div class="kicker">What this redesign fixes</div>
+  <h2>Broken prices, one language</h2>
+  <div class="callout" style="margin-top:16px">
+    <b>Found on the live site</b>
+    <p style="margin:0;font-size:15px;line-height:1.6">On sciencely.az, price fields render as broken placeholders — the «ман.» currency marker with no number — and the whole site is Russian-only, so international parents in Baku cannot see what a program costs or even what it is called. This demo is <b>trilingual-ready (RU · EN · AZ)</b> and prices every program visibly; at launch the team fills the real numbers or removes prices until they are ready to state them.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="kicker">Parents' questions — draft answers</div>
+  <h2>Before the first class</h2>
+  <p class="section-note">Each answer is a <b>draft for the team to confirm or correct</b>.</p>
+  <div class="faq">
+    <details><summary>What language is the class in?</summary><p><b>Draft answer:</b> Russian today, with EN/AZ versions on the roadmap — a live page states exactly which language each group runs in. [Placeholder — confirm with team]</p></details>
+    <details><summary>Is it safe?</summary><p><b>Draft answer:</b> experiments are age-rated and done with lab safety equipment; instructors are trained scientists, not animators. [Placeholder — confirm with team]</p></details>
+    <details><summary>Can we try one class first?</summary><p><b>Draft answer:</b> weekend programs are one-off sessions; clubs start with a trial visit. [Placeholder — confirm with team]</p></details>
+    <details><summary>How do we pay?</summary><p><b>Draft answer:</b> payment details travel with the booking confirmation — stated once, plainly, in the parent's language. [Placeholder — confirm with team]</p></details>
+    <details><summary>Where exactly is it?</summary><p><b>Draft answer:</b> labs run in central Baku locations; the exact address comes with the booking confirmation. [Placeholder — confirm with team]</p></details>
+    <details><summary>What if we miss a session?</summary><p><b>Draft answer:</b> club members get a make-up session or a materials kit for the missed topic. [Placeholder — confirm with team]</p></details>
+  </div>
+</section>
+
+<section id="signup">
+  <div class="kicker">Sign-up — demo only</div>
+  <h2>Ask about current programs</h2>
+  <p class="section-note">A parent's form that works in any language. <b>This demo sends nothing</b> — the confirmation below is the whole behavior; no data is stored or transmitted.</p>
+  <div class="enquiry" style="margin-top:16px">
+    <div class="contact-side">
+      <p>Prefer to talk? On the live site this column carries the team's own WhatsApp number next to the form — the channel parents already use — opened with your request pre-typed and ready to send yourself.</p>
+      <p class="mono-note" style="font-family:var(--mono);font-size:11.5px;color:#8a8c7a">Draft for approval — no contact details are invented here; the live site's published number would be restored on launch.</p>
+      <p style="margin-top:18px"><a class="btn ghost" href="https://sciencely.az/" rel="noopener">Visit the official site ↗</a></p>
+      <p style="margin-top:14px"><a href="../promo/sciencely/" style="font-family:var(--mono);font-size:12px;color:var(--accent)">See the draft promo concept (unpublished) →</a></p>
+    </div>
+    <form id="su" onsubmit="event.preventDefault();document.getElementById('ok').style.display='block';document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'})">
+      <div class="two">
+        <div><label for="pn">Parent's name</label><input id="pn" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+        <div><label for="ca">Child's age</label><select id="ca"><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></div>
+      </div>
+      <div><label for="pr">Program</label><select id="pr"><option>Weekend program — current theme</option><option>Science club (monthly)</option><option>Summer city laboratory</option><option>Family activity — advise me</option></select></div>
+      <div><label for="ph">Phone / WhatsApp</label><input id="ph" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+      <button type="submit">Preview the request</button>
+      <p class="ok" id="ok"><b>Demo only — nothing was sent.</b> No data was stored, transmitted or shared. On the live site this request would reach Sciencely's own WhatsApp, pre-typed and ready for you to send.</p>
+      <p class="mono-note" style="font-family:var(--mono);font-size:11.5px;color:#8a8c7a">No network request is made; no personal information is collected or persisted.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="inner">
+    <b>SCIENCELY. BAKU</b> · natural science for children · weekend programs · clubs · family activities · Baku<br>
+    Proposed redesign demo — not the official website. Draft awaiting client approval; program names and formats belong to Sciencely; prices shown are placeholders pending the team's confirmation.
+  </div>
+</footer>
+
+</body>
+</html>

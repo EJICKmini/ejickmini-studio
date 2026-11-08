@@ -1,0 +1,16 @@
+# secrets: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# dependencies and local tooling
+node_modules/
+.claude/
+
+# raw scraped test data and duplicate archives
+apify-test.json
+monid-test.json
+*.tar.gz
+demos/studio-redesign.zip

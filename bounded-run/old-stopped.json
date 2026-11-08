@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ses_r07edwx2feq8ebv8513kfx7f5w",
+    "status": "running",
+    "stop_reason": null,
+    "pending": [
+      {
+        "name": "board_write",
+        "tool_call_id": "tc_09d7b815cac65816ec098a97e1105534"
+      }
+    ]
+  },
+  {
+    "id": "ses_g7vyj9qrvdkgygc0xaaje4t0qy",
+    "status": "running",
+    "stop_reason": null,
+    "pending": []
+  },
+  {
+    "id": "ses_gc6j1b33yb9ysapeqmq3ttqdf0",
+    "status": "running",
+    "stop_reason": null,
+    "pending": []
+  },
+  {
+    "id": "ses_bp01xddfa6d7wrq1sm0wfjr5da",
+    "status": "running",
+    "stop_reason": null,
+    "pending": [
+      {
+        "name": "browser",
+        "tool_call_id": "tc_3f37f119fc0a331b69b9470561c0275b"
+      },
+      {
+        "name": "board_write",
+        "tool_call_id": "tc_fbc03f090960716bfed33e3219531ca5"
+      }
+    ]
+  }
+]

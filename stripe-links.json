@@ -1,0 +1,14 @@
+{
+  "mode": "test",
+  "redirect_after_payment": "https://personal-site-xs12r15q0hxw.vercel.app/studio/",
+  "automatic_tax": false,
+  "prices": {
+    "launch_usd": "price_1UZLdgPWKxTdDL4qNVswvPSb",
+    "care_usd_monthly": "price_1UZLdjPWKxTdDL4qHcXrG7wW"
+  },
+  "payment_links": {
+    "launch_usd": "https://buy.stripe.com/test_7sY4gBflMbK5gNK1GZdby00",
+    "care_usd_monthly": "https://buy.stripe.com/test_cNi7sN1uWeWh9lidpHdby01"
+  },
+  "updated_at": "2026-11-08T02:15:34.559Z"
+}
