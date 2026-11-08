@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ses_2yg162k88nhs0z6rr9nsrpywmt",
+    "object": "session",
+    "agent_id": "agt_jpba9m28jnc5784pjd876zgdjz",
+    "agent_version": 25,
+    "deployment_id": null,
+    "identity_id": null,
+    "computer_id": "cmp_01a1b87adb937d888fdb7d83ecbd344c",
+    "parent_session_id": null,
+    "root_session_id": null,
+    "thread_role": null,
+    "model": null,
+    "mode": "build",
+    "status": "idle",
+    "stop_reason": "end_turn",
+    "stop_code": null,
+    "window": "immediate",
+    "budget_micro_usd": 15000000,
+    "consumed_micro_usd": 907544,
+    "token_usage": {
+      "input": 20,
+      "cache_write": 306688,
+      "cache_read": 892631,
+      "output": 2367,
+      "reasoning": 2785
+    },
+    "pending_actions": [],
+    "output_schema": null,
+    "structured_output": null,
+    "outcome_evaluations": [],
+    "last_seq": 97,
+    "metadata": {
+      "purpose": "ONE-Melisa-autonomous-final",
+      "outreach": "draft-only",
+      "max_pages": 1
+    },
+    "started_at": "2026-11-08T01:42:17.589Z",
+    "ended_at": null,
+    "created_at": "2026-11-08T01:42:17.290Z"
+  }
+]

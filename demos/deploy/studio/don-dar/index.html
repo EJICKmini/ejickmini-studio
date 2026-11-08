@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1d2a3a">
+<title>Don-Dar Hotel — Proposed Redesign (Demo, not the official website)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Don-Dar — "quiet boutique". Ivory paper, deep navy ink, muted brass.
+     Mobile-first: the first phone screen is banner, name, headline, one action.
+     No photos, no logo: the arched "window" is a generic drawn illustration. */
+  :root{
+    --ivory:#f6f1e7; --paper:#fbf8f1; --ink:#1d2a3a; --ink-2:#3e4a58; --muted:#77808a;
+    --brass:#a8834a; --brass-2:#c8a96e; --line:#e4dbcb; --sage:#8a9a8b; --night:#16212e;
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:56px}
+  body{font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.6;font-size:16px;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit}
+  img,svg{display:block;max-width:100%}
+
+  /* ---------- Required disclosure: always visible ---------- */
+  .demo-banner{position:sticky;top:0;z-index:60;background:var(--night);color:#f3ecdc;
+    font-size:12.5px;line-height:1.4;font-weight:600;letter-spacing:.01em;padding:9px 16px;text-align:center}
+  .demo-banner .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--brass-2);
+    margin-right:8px;vertical-align:1px}
+  .demo-detail{background:#ece4d4;color:var(--ink-2);font-size:11.5px;line-height:1.45;padding:6px 16px;text-align:center}
+  .demo-detail a{color:var(--ink);text-underline-offset:2px}
+
+  /* ---------- Masthead ---------- */
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .masthead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 12px;padding:16px 0 12px}
+  .brand{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:.22em;line-height:1;white-space:nowrap}
+  .brand small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .langs{font-size:10.5px;font-weight:600;letter-spacing:.14em;color:var(--ink-2);border:1px solid var(--line);
+    border-radius:999px;padding:6px 10px;white-space:nowrap;background:var(--paper)}
+  .langs span{color:var(--muted);font-weight:500;letter-spacing:.02em}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid;gap:18px;padding:4px 0 30px}
+  .arch{position:relative;width:min(100%,380px);aspect-ratio:2/1;margin:0 auto;border-radius:999px 999px 18px 18px;
+    overflow:hidden;background:#e9e0cf;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 22px 50px -30px rgba(29,42,58,.55)}
+  .arch svg{width:100%;height:100%}
+  .arch::after{content:"";position:absolute;inset:10px;border:1px solid rgba(251,248,241,.55);
+    border-radius:999px 999px 12px 12px;pointer-events:none}
+  .arch-cap{font-size:10.5px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:.02em}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,10.4vw,86px);line-height:1.02;
+    letter-spacing:-.01em;margin:8px 0 0}
+  .hero h1 em{font-style:italic;color:var(--brass)}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;
+    border-radius:999px;font-size:14px;font-weight:700;letter-spacing:.04em;text-decoration:none;
+    background:var(--ink);color:var(--paper);border:1px solid var(--ink);transition:background .2s,color .2s,border-color .2s}
+  .btn:hover{background:var(--brass);border-color:var(--brass)}
+  .btn.ghost{background:transparent;color:var(--ink);border-color:#c9bda6}
+  .btn.ghost:hover{border-color:var(--ink);background:var(--paper)}
+  .btn .arr{font-family:var(--serif);font-size:20px;line-height:0}
+  .note{font-size:12px;color:var(--muted);letter-spacing:.01em}
+  .standfirst{display:grid;gap:14px;font-size:16px;color:var(--ink-2);max-width:68ch;margin-top:26px}
+  .standfirst b{color:var(--ink)}
+
+  /* ---------- Section nav (chips, scrolls sideways on phones) ---------- */
+  nav.chips{position:relative;z-index:40;background:rgba(246,241,231,.94);backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  nav.chips .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+  nav.chips .wrap::-webkit-scrollbar{display:none}
+  nav.chips a{flex:none;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink-2);padding:8px 14px;
+    border-radius:999px;border:1px solid var(--line);background:var(--paper);white-space:nowrap}
+  nav.chips a:hover{border-color:var(--brass);color:var(--ink)}
+  nav.chips a.quiet{background:transparent;color:var(--muted)}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0 8px}
+  .kicker{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+  .kicker::before{content:"";width:26px;height:1px;background:var(--brass)}
+  h2{font-family:var(--serif);font-weight:500;font-size:clamp(32px,8vw,52px);line-height:1.04;letter-spacing:-.005em;margin-bottom:14px}
+  .lede{max-width:64ch;color:var(--ink-2);margin-bottom:28px}
+  .lede b{color:var(--ink)}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:#7a5f30;background:#f1e6cf;border:1px solid #e3d2ae;border-radius:999px;padding:3px 9px;vertical-align:2px}
+
+  /* Rooms */
+  .rooms{display:grid;gap:14px}
+  .room{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;
+    display:grid;gap:12px;position:relative}
+  .room-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+  .room .no{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--muted)}
+  .room h3{font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.1;margin-top:2px}
+  .rate{text-align:right;flex:none}
+  .rate .num{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1;color:var(--ink)}
+  .rate .cur{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:4px;letter-spacing:.02em}
+  .facts{display:grid;gap:6px;font-size:14.5px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:12px}
+  .facts b{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+  .room.pending{background:transparent;border-style:dashed}
+  .after-note{font-size:13.5px;color:var(--muted);margin-top:16px;max-width:64ch}
+
+  /* Neighbourhood */
+  .hood{display:grid;gap:0;border-top:1px solid var(--line)}
+  .cell{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .cell .i{font-family:var(--serif);font-size:22px;color:var(--brass);line-height:1.2;width:28px}
+  .cell .where{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .cell .place{font-family:var(--serif);font-weight:600;font-size:22px;line-height:1.2}
+  .cell .desc{font-size:14.5px;color:var(--ink-2)}
+  .mapbox{margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+  .mapbox svg{width:100%;height:auto;border-radius:8px}
+  .mapbox figcaption{font-size:12px;color:var(--muted);margin-top:10px}
+
+  /* FAQ */
+  .faq{border-top:1px solid var(--line)}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:18px 2px;font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.25}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);
+    display:grid;place-items:center;font-family:var(--sans);font-size:17px;color:var(--brass);transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{padding:0 2px 18px;font-size:15px;color:var(--ink-2);max-width:62ch}
+  .faq details p b{color:var(--ink)}
+
+  /* Enquiry */
+  .enquiry{display:grid;gap:22px}
+  .contact-side p{color:var(--ink-2);margin-bottom:14px;max-width:52ch}
+  .contact-side .small{font-size:12.5px;color:var(--muted)}
+  .contact-side .promo{font-size:13px;font-weight:600;color:var(--brass);text-underline-offset:3px}
+  form{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;gap:14px;
+    box-shadow:0 18px 40px -32px rgba(29,42,58,.5)}
+  label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  input,select{width:100%;min-height:48px;padding:0 14px;font:inherit;font-size:16px;color:var(--ink);background:#fff;
+    border:1px solid #d9cfbd;border-radius:10px;-webkit-appearance:none;appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--brass) 50%),linear-gradient(135deg,var(--brass) 50%,transparent 50%);
+    background-position:calc(100% - 20px) 52%,calc(100% - 15px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:36px}
+  input:focus,select:focus{outline:2px solid var(--brass-2);outline-offset:1px;border-color:var(--brass)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  form button{min-height:50px;border-radius:999px;border:0;background:var(--ink);color:var(--paper);font:inherit;
+    font-weight:700;font-size:15px;letter-spacing:.03em;cursor:pointer}
+  form button:hover{background:var(--brass)}
+  .ok{display:none;border:1px dashed var(--brass);background:#fff;border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink-2)}
+  .ok b{color:var(--ink)}
+
+  /* Footer */
+  footer{background:var(--night);color:#cfc8b8;margin-top:72px}
+  footer .wrap{padding-top:40px;padding-bottom:44px;display:grid;gap:12px;font-size:13.5px;line-height:1.7}
+  footer .fbrand{font-family:var(--serif);font-size:24px;letter-spacing:.2em;color:#f3ecdc}
+  footer a{color:var(--brass-2)}
+
+  /* ---------- Larger screens ---------- */
+  @media (min-width:760px){
+    .wrap{padding:0 32px}
+    nav.chips{position:sticky;top:36px}
+    .brand{font-size:30px}
+    .hero{grid-template-columns:1.15fr .85fr;align-items:center;gap:48px;padding:28px 0 56px}
+    .hero .copy{order:0}
+    .hero .art{order:1}
+    .arch{width:100%;max-width:420px;aspect-ratio:4/5}
+    .standfirst{grid-template-columns:1fr 1fr;gap:28px}
+    .rooms{grid-template-columns:1fr 1fr}
+    .hood{grid-template-columns:1fr 1fr;column-gap:40px}
+    .enquiry{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+    form{padding:28px}
+    footer .wrap{grid-template-columns:1fr 2fr;align-items:start}
+  }
+  @media (min-width:1040px){ .hood{grid-template-columns:1fr 1fr 1fr} }
+  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner" role="note"><span class="dot" aria-hidden="true"></span>Proposed redesign for Don-Dar Hotel — demo, not the official website.</div>
+<div class="demo-detail">The live hotel is at <a href="https://dondarhotel.az/">dondarhotel.az</a>. Prepared by Murad Gasimov's studio, Nov 2026 — unpublished draft awaiting client approval.</div>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand">DON-DAR<small>Baku city hotel · 91 Üzeyir Hacıbəyov</small></div>
+    <div class="langs">EN · AZ · RU <span>— trilingual-ready demo</span></div>
+  </header>
+
+  <div class="hero">
+    <div class="art">
+      <div class="arch" role="img" aria-label="Illustration: an arched window looking onto a park at dusk. A drawing, not the hotel.">
+        <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#22324a"/><stop offset=".55" stop-color="#7d6f78"/><stop offset="1" stop-color="#e7c79a"/>
+            </linearGradient>
+            <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#c9a77a"/><stop offset="1" stop-color="#5d6b78"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="320" fill="url(#sky)"/>
+          <circle cx="292" cy="150" r="30" fill="#f4dcb0" opacity=".9"/>
+          <circle cx="292" cy="150" r="52" fill="#f4dcb0" opacity=".12"/>
+          <path d="M0 214 L400 214 L400 320 L0 320Z" fill="url(#water)" opacity=".85"/>
+          <path d="M240 222 h104 M258 232 h70 M272 242 h42" stroke="#f4dcb0" stroke-width="2" opacity=".45" stroke-linecap="round"/>
+          <path d="M0 210 C40 200 60 206 96 198 S150 204 190 196 260 206 300 200 360 204 400 196 L400 230 L0 230Z" fill="#3b4652" opacity=".55"/>
+          <g fill="#1f2b26">
+            <path d="M0 320 L0 196 C14 168 34 160 48 176 C58 150 86 146 98 172 C112 158 132 166 134 190 L140 320Z"/>
+            <path d="M120 320 L124 222 C134 204 152 202 160 220 C168 206 186 210 186 228 L190 320Z" opacity=".9"/>
+            <path d="M330 320 L334 214 C344 188 368 184 380 204 C390 192 400 196 400 196 L400 320Z"/>
+          </g>
+          <g stroke="#e9d4ab" stroke-width="1.5" opacity=".75">
+            <path d="M196 320 V250"/><path d="M190 250 h12"/>
+          </g>
+          <circle cx="196" cy="246" r="5" fill="#f4dcb0"/>
+          <circle cx="196" cy="246" r="14" fill="#f4dcb0" opacity=".18"/>
+          <path d="M0 290 C120 280 260 284 400 276 L400 320 L0 320Z" fill="#16212e" opacity=".9"/>
+        </svg>
+      </div>
+      <p class="arch-cap">Illustration only — on launch, the hotel's own photography.</p>
+    </div>
+
+    <div class="copy">
+      <div class="eyebrow">A small city hotel in Baku</div>
+      <h1>Quiet rooms, an honest page, <em>a park at the door</em>.</h1>
+      <div class="actions">
+        <a class="btn" href="#rooms">See rooms &amp; sample rates <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#book">Ask about your dates</a>
+      </div>
+      <p class="note" style="margin-top:12px">Draft for approval — no live booking on this page</p>
+    </div>
+  </div>
+
+  <div class="standfirst">
+    <p>Don-Dar Hotel sits on Üzeyir Hacıbəyov, near Pushkin's Park — a small city hotel for people who come to Baku to work, wander and sleep well. The hotel's current website describes its rooms with lorem-ipsum text and a placeholder contact email, so this proposal starts there: say what the rooms are, show what they cost, and answer the questions guests actually ask.</p>
+    <p>Everything on this page is a <b>working draft</b> for the hotel's review — the room facts, the sample rates, the neighbourhood notes. On the live site the hotel's own photography would sit in these frames. Nothing is published; the hotel's real site remains at dondarhotel.az.</p>
+  </div>
+</div>
+
+<nav class="chips" aria-label="Page sections" style="margin-top:36px">
+  <div class="wrap">
+    <a href="#rooms">Rooms &amp; rates</a>
+    <a href="#location">Neighbourhood</a>
+    <a href="#faq">Practicalities</a>
+    <a href="#book">Enquiries</a>
+    <a class="quiet" href="../promo/don-dar/">Draft promo concept</a>
+    <a class="quiet" href="https://dondarhotel.az/" rel="noopener">Official site ↗</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section id="rooms">
+    <div class="kicker">Rooms &amp; rates — illustrative</div>
+    <h2>Every room type, on one honest page</h2>
+    <p class="lede">The live site lists one generic room page for all categories. Here, each room type gets a line of the index: what it is, how big, what it costs. <b>All rates are illustrative placeholders pending the hotel's confirmation</b> — and so are the room sizes and features below, which are <b>samples</b> showing the layout, not facts from the hotel. The point of the redesign is the structure, not the numbers.</p>
+    <div class="rooms">
+      <article class="room">
+        <div class="room-head">
+          <div><span class="no">01</span><h3>Standard Room</h3></div>
+          <div class="rate"><span class="num">85</span><span class="cur">AZN / night · sample rate</span></div>
+        </div>
+        <div class="facts">
+          <div><b>Sample details</b>18 m², double bed, work desk, park-side light <span class="tag">sample</span></div>
+          <div><b>Best for</b>two colleagues, one suitcase each</div>
+        </div>
+      </article>
+      <article class="room">
+        <div class="room-head">
+          <div><span class="no">02</span><h3>Economy Room</h3></div>
+          <div class="rate"><span class="num">55</span><span class="cur">AZN / night · sample rate</span></div>
+        </div>
+        <div class="facts">
+          <div><b>Sample details</b>12 m², compact and clean, everything works <span class="tag">sample</span></div>
+          <div><b>Best for</b>short stays, sharper budgets</div>
+        </div>
+      </article>
+      <article class="room">
+        <div class="room-head">
+          <div><span class="no">03</span><h3>Superior Deluxe</h3></div>
+          <div class="rate"><span class="num">130</span><span class="cur">AZN / night · sample rate</span></div>
+        </div>
+        <div class="facts">
+          <div><b>Sample details</b>26 m², king bed, seating corner, balcony <span class="tag">sample</span></div>
+          <div><b>Best for</b>a longer stay, or celebrating something</div>
+        </div>
+      </article>
+      <article class="room pending">
+        <div class="room-head">
+          <div><span class="no">04</span><h3>Common Room</h3></div>
+          <div class="rate"><span class="num">45</span><span class="cur">AZN / night · sample rate</span></div>
+        </div>
+        <div class="facts">
+          <div><b>Listed on dondarhotel.az</b>as a room category; details pending hotel confirmation</div>
+          <div><b>Best for</b>budget travellers; structure shown for completeness</div>
+        </div>
+      </article>
+    </div>
+    <p class="after-note">The real site would use the hotel's own photography in place of these typographic rows. Sample rates, sizes and features are illustrative pending the owner's confirmation.</p>
+  </section>
+
+  <section id="location">
+    <div class="kicker">The neighbourhood — public Baku facts</div>
+    <h2>Walk to everything</h2>
+    <p class="lede">The live site's one-line address deserves better. These notes stay within general public knowledge about central Baku — <b>no invented distance or walking-time numbers</b>.</p>
+    <div class="hood">
+      <div class="cell"><span class="i">i</span><div><span class="where">Nearby</span><div class="place">Pushkin's Park</div><div class="desc">Greenery, shade and benches close to the hotel's door.</div></div></div>
+      <div class="cell"><span class="i">ii</span><div><span class="where">Central Baku</span><div class="place">Baku Boulevard &amp; the Caspian promenade</div><div class="desc">The city's sea side: fountains, the promenade, the Caravanserai complex beyond.</div></div></div>
+      <div class="cell"><span class="i">iii</span><div><span class="where">Central Baku</span><div class="place">Nizami Street</div><div class="desc">Baku's central shopping avenue.</div></div></div>
+      <div class="cell"><span class="i">iv</span><div><span class="where">Central Baku</span><div class="place">Icherisheher — the Old City</div><div class="desc">Maiden's Tower, caravanserais, the walled lanes.</div></div></div>
+      <div class="cell"><span class="i">v</span><div><span class="where">Seasonal</span><div class="place">F1 Baku City Circuit</div><div class="desc">Race weekend threads the Boulevard streets.</div></div></div>
+      <div class="cell"><span class="i">vi</span><div><span class="where">Connections</span><div class="place">Heydar Aliyev Airport</div><div class="desc">Reached by the airport's fixed-fare taxi route.</div></div></div>
+    </div>
+    <figure class="mapbox">
+      <svg viewBox="0 0 900 230" role="img" aria-label="Stylised map: hotel marker beside Pushkin's Park, between the Boulevard and the Old City, Baku">
+        <rect width="900" height="230" fill="#f3ede1"/>
+        <path d="M0 168 C 120 148 220 178 340 166 S 560 138 700 160 850 168 900 156 L900 230 L0 230Z" fill="#c9d5dc" opacity=".7"/>
+        <path d="M0 168 C 120 148 220 178 340 166 S 560 138 700 160 850 168 900 156" fill="none" stroke="#a9bcc7" stroke-width="2"/>
+        <g fill="none" stroke="#e1d6c2" stroke-width="3">
+          <path d="M0 64 C 140 70 260 52 420 64 S 660 82 900 62"/>
+          <path d="M120 0 C 130 70 118 140 126 170"/>
+          <path d="M300 0 C 310 80 300 140 312 168"/>
+          <path d="M480 0 C 486 60 478 120 486 156"/>
+          <path d="M640 0 C 648 90 636 130 644 160"/>
+        </g>
+        <rect x="168" y="90" width="124" height="56" rx="10" fill="#dfe6d8" stroke="#bccab2"/>
+        <text x="230" y="123" text-anchor="middle" font-family="Cormorant Garamond, Georgia" font-weight="600" font-size="17" fill="#4a5a46">Pushkin's Park</text>
+        <circle cx="332" cy="100" r="16" fill="#a8834a" opacity=".18"/>
+        <circle cx="332" cy="100" r="7" fill="#a8834a"/>
+        <text x="332" y="80" text-anchor="middle" font-family="Cormorant Garamond, Georgia" font-weight="600" font-size="19" letter-spacing="3" fill="#1d2a3a">DON-DAR</text>
+        <text x="332" y="128" text-anchor="middle" font-family="Manrope, Helvetica" font-size="11" fill="#77808a">91 Üzeyir Hacıbəyov</text>
+        <text x="40" y="208" font-family="Manrope, Helvetica" font-size="12" font-weight="600" fill="#4f6878">Caspian · Boulevard</text>
+        <text x="690" y="208" font-family="Manrope, Helvetica" font-size="12" font-weight="600" fill="#4f6878">→ Icherisheher (Old City)</text>
+        <text x="600" y="36" font-family="Manrope, Helvetica" font-size="12" font-weight="600" fill="#77808a">Nizami St →</text>
+      </svg>
+      <figcaption>Stylised orientation map — an illustration, not a scale map; no distances are claimed.</figcaption>
+    </figure>
+  </section>
+
+  <section id="faq">
+    <div class="kicker">Practicalities — answers before the first call</div>
+    <h2>Questions guests actually ask</h2>
+    <p class="lede">Every answer below is a <b>draft for the hotel to confirm or correct</b>. Where the live site is silent, this page proposes an answer rather than inventing a fact.</p>
+    <div class="faq">
+      <details><summary>What time is check-in?</summary><p><b>Draft answer:</b> from early afternoon; the hotel confirms the exact hour. Early arrivals can note it in the enquiry. [Placeholder — confirm with hotel]</p></details>
+      <details><summary>Is breakfast included?</summary><p><b>Draft answer:</b> stated clearly on every rate — included, optional, or served at the on-site restaurant. [Placeholder — confirm with hotel]</p></details>
+      <details><summary>Can I park?</summary><p><b>Draft answer:</b> yes/no and whether race weekends change anything, said in one line. [Placeholder — confirm with hotel]</p></details>
+      <details><summary>Do you take card payment?</summary><p><b>Draft answer:</b> which cards work at the desk, plus cash in AZN. [Placeholder — confirm with hotel]</p></details>
+      <details><summary>What is the cancellation policy?</summary><p><b>Draft answer:</b> one simple rule (for example, free cancellation up to 48 hours on flexible rates) instead of leaving guests to email twice. [Placeholder — confirm with hotel]</p></details>
+      <details><summary>Do you speak English?</summary><p><b>Draft answer:</b> reception languages stated exactly as the team works — and this demo page is trilingual-ready: EN · AZ · RU. [Placeholder — confirm with hotel]</p></details>
+    </div>
+  </section>
+
+  <section id="book">
+    <div class="kicker">Enquiries — demo only</div>
+    <h2>Ask about your dates</h2>
+    <p class="lede">A simple enquiry form replaces the live site's placeholder email. <b>This demo sends nothing</b> — the confirmation below is the whole behavior; no data is stored or transmitted.</p>
+    <div class="enquiry">
+      <div class="contact-side">
+        <p>Prefer to talk? On the live site this column carries the hotel's own phone and email from dondarhotel.az, right next to the form — the human channel one glance away, as at the best independent hotels.</p>
+        <p class="small">Draft for approval — no contact details are invented here; the live site's published phone/email would be restored on launch.</p>
+        <p style="margin-top:20px"><a class="btn ghost" href="https://dondarhotel.az/" rel="noopener">Visit the official site ↗</a></p>
+        <p style="margin-top:14px"><a class="promo" href="../promo/don-dar/">See the draft promo concept (unpublished) →</a></p>
+      </div>
+      <form id="enq" onsubmit="event.preventDefault();document.getElementById('ok').style.display='block';document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'})">
+        <div class="two">
+          <div><label for="din">Check-in</label><input id="din" type="date" required></div>
+          <div><label for="dout">Check-out</label><input id="dout" type="date" required></div>
+        </div>
+        <div class="two">
+          <div><label for="g">Guests</label><select id="g"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+          <div><label for="r">Room</label><select id="r"><option>Standard</option><option>Economy</option><option>Common</option><option>Superior (details pending)</option><option>Superior Deluxe</option></select></div>
+        </div>
+        <div><label for="n">Your name</label><input id="n" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+        <div><label for="c">Email or WhatsApp</label><input id="c" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+        <button type="submit">Preview the enquiry</button>
+        <p class="ok" id="ok"><b>Demo only — nothing was sent.</b> No data was stored, transmitted or shared. On the live site this enquiry would reach the hotel's own inbox; the hotel would reply with real availability.</p>
+        <p class="note">No network request is made; no personal information is collected or persisted.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">DON-DAR</div>
+    <div><b style="color:#f3ecdc">DON-DAR HOTEL</b> — 91 Üzeyir Hacıbəyov, Baku · <a href="https://dondarhotel.az/">dondarhotel.az</a><br>
+    Proposed redesign demo — not the official website. Draft awaiting client approval; sample rates, room details and draft answers are placeholders pending the hotel's confirmation.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b2a4a">
+<title>Sciencely. Baku — Proposed Redesign (Demo, not the official website)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Sciencely — "playful lab notebook". Graph paper, beaker teal, bubble pink, sunshine yellow, navy ink.
+     Mobile-first: first phone screen = banner, name, drawn flask + headline, one action.
+     No photos, no logo: the flask, atom and bubbles are generic drawings. */
+  :root{
+    --ink:#1b2a4a; --ink-2:#3d4b68; --muted:#6b7591; --paper:#fbfaf4; --grid:#e3ecf3;
+    --teal:#13a8a0; --teal-2:#0e8a83; --pink:#ff5d8f; --yellow:#ffc93c; --violet:#7b61ff; --line:#dfe3ea;
+    --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
+    --sans:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --r:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:56px}
+  body{font-family:var(--sans);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased;
+    background-color:var(--paper);
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px}
+  a{color:inherit}
+  svg{display:block;max-width:100%}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Required disclosure ---------- */
+  .demo-banner{position:sticky;top:0;z-index:60;background:var(--ink);color:#fff;font-size:12.5px;font-weight:700;line-height:1.4;
+    padding:9px 16px;text-align:center}
+  .demo-banner .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:8px;vertical-align:0}
+  .demo-detail{background:#fff4cf;color:var(--ink-2);font-size:11.5px;line-height:1.45;padding:6px 16px;text-align:center;border-bottom:2px solid var(--ink)}
+  .demo-detail a{color:var(--ink);text-underline-offset:2px}
+
+  /* ---------- Masthead ---------- */
+  .masthead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 12px;padding:16px 0 8px}
+  .brand{font-family:var(--display);font-weight:700;font-size:28px;line-height:1;white-space:nowrap}
+  .brand .sci{color:var(--teal)}
+  .brand .sci i{font-style:normal;color:var(--pink)}
+  .brand small{display:block;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--muted);margin-top:6px}
+  .langs{font-size:11px;font-weight:800;letter-spacing:.08em;background:#fff;border:2px solid var(--ink);border-radius:999px;padding:5px 10px;
+    white-space:nowrap;box-shadow:2px 2px 0 var(--ink)}
+  .langs span{font-weight:600;letter-spacing:0;color:var(--muted)}
+
+  /* ---------- Hero ---------- */
+  .hero{display:grid;gap:14px;padding:8px 0 30px}
+  .lab{position:relative;height:168px;border-radius:24px;background:linear-gradient(160deg,#dff6f3,#fff4cf 70%);border:2px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);overflow:hidden}
+  .lab svg{position:absolute;inset:0;width:100%;height:100%}
+  .lab-cap{font-size:11px;color:var(--muted);text-align:center;margin-top:-4px}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-2)}
+  .hero h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,11.4vw,82px);line-height:1.02;letter-spacing:-.01em;margin-top:6px}
+  .hero h1 em{font-style:normal;white-space:nowrap;background:linear-gradient(transparent 58%,var(--yellow) 58% 92%,transparent 92%);padding:0 4px}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .btn{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 22px;border-radius:999px;font-weight:800;font-size:15.5px;
+    text-decoration:none;background:var(--pink);color:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .btn.ghost{background:#fff;color:var(--ink)}
+  .note{font-size:12.5px;color:var(--muted);margin-top:12px}
+  .standfirst{font-size:16.5px;color:var(--ink-2);max-width:66ch;margin-top:22px}
+  .cred{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .cred span{font-size:13px;font-weight:700;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px}
+  .cred span:nth-child(1){border-color:var(--teal)} .cred span:nth-child(2){border-color:var(--pink)}
+  .cred span:nth-child(3){border-color:var(--yellow)} .cred span:nth-child(4){border-color:var(--violet)}
+
+  /* ---------- Section nav ---------- */
+  nav.chips{background:rgba(251,250,244,.95);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  nav.chips .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:12px;padding-bottom:12px;scrollbar-width:none}
+  nav.chips .wrap::-webkit-scrollbar{display:none}
+  nav.chips a{flex:none;font-size:13.5px;font-weight:800;text-decoration:none;padding:7px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff;white-space:nowrap}
+  nav.chips a:hover{background:var(--yellow)}
+  nav.chips a.quiet{border-color:var(--line);color:var(--muted)}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0 8px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-2);margin-bottom:10px}
+  .kicker::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--pink);box-shadow:16px 0 0 -2px var(--yellow);margin-right:16px}
+  h2{font-family:var(--display);font-weight:600;font-size:clamp(32px,8.6vw,54px);line-height:1.05;margin-bottom:14px}
+  .lede{max-width:66ch;color:var(--ink-2);margin-bottom:26px}
+  .lede b{color:var(--ink)}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:.9em;background:#fff4cf;border-radius:6px;padding:1px 6px}
+
+  /* Protocol cards (stickers) */
+  .protocols{display:grid;gap:18px}
+  .proto{position:relative;background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:20px 18px 18px;box-shadow:4px 4px 0 var(--ink)}
+  .proto:nth-child(1){--c:var(--teal)} .proto:nth-child(2){--c:var(--pink)} .proto:nth-child(3){--c:var(--yellow)}
+  .proto::before{content:"";position:absolute;top:-2px;left:22px;right:22px;height:8px;background:var(--c);border:2px solid var(--ink);border-top:0;border-radius:0 0 8px 8px}
+  .proto .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}
+  .proto .num{font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.12em;color:var(--muted)}
+  .proto .spec{font-size:12.5px;font-weight:800;background:var(--c);color:var(--ink);border:2px solid var(--ink);border-radius:999px;padding:3px 10px}
+  .proto h3{font-family:var(--display);font-weight:600;font-size:26px;line-height:1.1;margin:10px 0 8px}
+  .proto p{font-size:15px;color:var(--ink-2)}
+  .proto .price{margin-top:14px;padding-top:12px;border-top:2px dashed var(--line);display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:14px;color:var(--ink-2)}
+  .proto .price b{font-family:var(--display);font-weight:700;font-size:28px;color:var(--ink)}
+  .proto .price i{flex-basis:100%;font-style:normal;font-size:12px;font-weight:800;color:#b0305a}
+  .after-note{font-size:14px;color:var(--muted);margin-top:18px;max-width:66ch}
+  .after-note b{color:var(--ink)}
+
+  /* Method */
+  .method{display:grid;gap:14px;counter-reset:s}
+  .step{background:#fff;border:2px solid var(--ink);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
+  .step .dotn{grid-row:span 3;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:20px;
+    border:2px solid var(--ink);background:var(--c)}
+  .step:nth-child(1){--c:#dff6f3} .step:nth-child(2){--c:#ffe1ea} .step:nth-child(3){--c:#fff1c4}
+  .step .n{font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .step h3{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15}
+  .step p{font-size:15px;color:var(--ink-2)}
+
+  /* Fix callout (sticky note) */
+  .callout{background:#fff1a8;border:2px solid var(--ink);border-radius:6px 6px 22px 6px;padding:22px 20px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-.6deg)}
+  .callout b.lbl{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:#fff;border-radius:999px;padding:4px 10px;margin-bottom:12px}
+  .callout p{font-size:15.5px;line-height:1.65}
+
+  /* FAQ */
+  .faq{display:grid;gap:10px}
+  .faq details{background:#fff;border:2px solid var(--ink);border-radius:14px}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:15px 16px;font-weight:800;font-size:16.5px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"?";flex:none;width:30px;height:30px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);display:grid;place-items:center;
+    font-family:var(--display);font-weight:700}
+  .faq details[open] summary::after{content:"!";background:var(--teal);color:#fff}
+  .faq details p{padding:0 16px 16px;font-size:15px;color:var(--ink-2)}
+
+  /* Sign-up */
+  .enquiry{display:grid;gap:22px}
+  .contact-side p{color:var(--ink-2);margin-bottom:14px;max-width:52ch}
+  .contact-side .small{font-size:12.5px;color:var(--muted)}
+  .contact-side .promo{font-size:13.5px;font-weight:800;color:var(--teal-2);text-underline-offset:3px}
+  form{background:#fff;border:2px solid var(--ink);border-radius:22px;padding:20px;display:grid;gap:14px;box-shadow:5px 5px 0 var(--teal)}
+  label{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--ink-2);margin-bottom:6px}
+  input,select{width:100%;min-height:48px;padding:0 14px;font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:2px solid #cfd6e2;border-radius:12px;
+    -webkit-appearance:none;appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--pink) 50%),linear-gradient(135deg,var(--pink) 50%,transparent 50%);
+    background-position:calc(100% - 20px) 52%,calc(100% - 15px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:36px}
+  input:focus,select:focus{outline:none;border-color:var(--teal)}
+  .two{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+  form button{min-height:52px;border-radius:999px;border:2px solid var(--ink);background:var(--teal);color:#fff;font:inherit;font-weight:800;font-size:16px;cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink)}
+  form button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .ok{display:none;border:2px dashed var(--teal);border-radius:12px;padding:12px 14px;font-size:14.5px;color:var(--ink-2);background:#effaf8}
+  .ok b{color:var(--ink)}
+  .tiny{font-size:12.5px;color:var(--muted)}
+
+  footer{background:var(--ink);color:#c9d0e0;margin-top:72px;border-top:6px solid var(--yellow)}
+  footer .wrap{padding-top:36px;padding-bottom:44px;display:grid;gap:12px;font-size:14px;line-height:1.7}
+  footer .fbrand{font-family:var(--display);font-weight:700;font-size:28px;color:#fff}
+  footer .fbrand span{color:var(--teal)}
+  footer b{color:#fff}
+
+  @media (min-width:760px){
+    .wrap{padding:0 32px}
+    .brand{font-size:34px}
+    .hero{grid-template-columns:1.1fr .9fr;align-items:center;gap:40px;padding:24px 0 40px}
+    .hero .copy{order:0} .hero .art{order:1}
+    .lab{height:360px}
+    .protocols{grid-template-columns:repeat(3,1fr)}
+    .proto:nth-child(2){transform:translateY(14px)}
+    .method{grid-template-columns:repeat(3,1fr)}
+    .step{grid-template-columns:1fr}
+    .step .dotn{grid-row:auto;margin-bottom:6px}
+    .enquiry{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:start}
+    form{padding:28px}
+    footer .wrap{grid-template-columns:1fr 2fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner" role="note"><span class="dot" aria-hidden="true"></span>Proposed redesign for Sciencely. Baku — demo, not the official website.</div>
+<div class="demo-detail">The live business is at <a href="https://sciencely.az/">sciencely.az</a>. Prepared by Murad Gasimov's studio, Nov 2026 — unpublished draft awaiting client approval.</div>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="brand"><span class="sci">Sciencely<i>.</i></span> Baku<small>Hands-on natural science for children</small></div>
+    <div class="langs">RU · EN · AZ <span>— trilingual-ready demo</span></div>
+  </header>
+
+  <div class="hero">
+    <div class="art">
+      <div class="lab" role="img" aria-label="Illustration: a bubbling flask, a test tube and an atom. A generic drawing, not the team's lab.">
+        <svg viewBox="0 0 360 180" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <g fill="none" stroke="#1b2a4a" stroke-width="2.5" opacity=".9">
+            <ellipse cx="292" cy="62" rx="44" ry="16"/>
+            <ellipse cx="292" cy="62" rx="44" ry="16" transform="rotate(60 292 62)"/>
+            <ellipse cx="292" cy="62" rx="44" ry="16" transform="rotate(-60 292 62)"/>
+          </g>
+          <circle cx="292" cy="62" r="8" fill="#ff5d8f" stroke="#1b2a4a" stroke-width="2.5"/>
+          <circle cx="336" cy="62" r="5" fill="#ffc93c" stroke="#1b2a4a" stroke-width="2"/>
+          <circle cx="270" cy="25" r="5" fill="#13a8a0" stroke="#1b2a4a" stroke-width="2"/>
+          <path d="M150 30 h40 M158 30 v46 L120 150 a12 12 0 0 0 11 18 h78 a12 12 0 0 0 11 -18 L182 76 v-46" fill="#fff" stroke="#1b2a4a" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M136 120 L204 120 L216 146 a10 10 0 0 1 -9 15 h-74 a10 10 0 0 1 -9 -15Z" fill="#13a8a0"/>
+          <path d="M136 120 c12 -6 22 6 34 0 s22 -6 34 0" fill="none" stroke="#0e8a83" stroke-width="3"/>
+          <circle cx="160" cy="140" r="5" fill="#dff6f3"/><circle cx="182" cy="150" r="3.5" fill="#dff6f3"/><circle cx="176" cy="132" r="3" fill="#dff6f3"/>
+          <circle cx="166" cy="98" r="6" fill="#fff" stroke="#13a8a0" stroke-width="2.5"/>
+          <circle cx="178" cy="70" r="8" fill="#fff" stroke="#ff5d8f" stroke-width="2.5"/>
+          <circle cx="160" cy="44" r="5" fill="#fff" stroke="#ffc93c" stroke-width="2.5"/>
+          <circle cx="186" cy="14" r="9" fill="#fff" stroke="#7b61ff" stroke-width="2.5"/>
+          <g transform="rotate(-14 62 110)">
+            <rect x="48" y="40" width="28" height="112" rx="14" fill="#fff" stroke="#1b2a4a" stroke-width="3"/>
+            <path d="M51 100 h22 v38 a11 11 0 0 1 -22 0Z" fill="#ff5d8f"/>
+            <path d="M44 40 h36" stroke="#1b2a4a" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <g fill="#ffc93c" stroke="#1b2a4a" stroke-width="2">
+            <path d="M252 140 l5 10 11 2 -8 8 2 11 -10 -5 -10 5 2 -11 -8 -8 11 -2Z"/>
+          </g>
+          <path d="M28 168 H332" stroke="#1b2a4a" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="lab-cap" style="margin-top:8px">Illustration only — a drawing, not the team's lab.</p>
+    </div>
+    <div class="copy">
+      <div class="eyebrow">Natural science for kids · Baku</div>
+      <h1>Every big discovery starts with <em>«А почему?»</em></h1>
+      <div class="actions">
+        <a class="btn" href="#programs">Read the program cards <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#signup">Ask about current programs</a>
+      </div>
+      <p class="note">Draft for approval — no live sign-up on this page</p>
+    </div>
+  </div>
+
+  <p class="standfirst">Sciencely. Baku runs natural-science programs for children — weekend sessions, ongoing clubs and family activities, taught by young scientists. This redesign keeps the curiosity and adds the clarity parents need in any language: each program written up like a protocol card, with ages, format, duration and price in plain view.</p>
+  <div class="cred">
+    <span>Natural sciences for children</span>
+    <span>Young scientist educators</span>
+    <span>Clubs &amp; family activities</span>
+    <span>Baku, Azerbaijan</span>
+  </div>
+</div>
+
+<nav class="chips" aria-label="Page sections" style="margin-top:36px">
+  <div class="wrap">
+    <a href="#programs">Programs</a>
+    <a href="#method">The method</a>
+    <a href="#fix">What this fixes</a>
+    <a href="#faq">Parents' questions</a>
+    <a href="#signup">Sign-up</a>
+    <a class="quiet" href="../promo/sciencely/">Draft promo concept</a>
+    <a class="quiet" href="https://sciencely.az/" rel="noopener">Official site ↗</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section id="programs">
+    <div class="kicker">Programs — illustrative pricing</div>
+    <h2>Every program, priced in plain sight</h2>
+    <p class="lede">The live site's program tiles show broken price placeholders — <code>ман.</code> with no number — so parents can't compare anything. Each card below is a <b>protocol-style draft</b>: the real format and age bands from sciencely.az, with <b>illustrative placeholder prices</b> the team would replace or remove at launch. Ages, durations and formats still need the team's confirmation before launch.</p>
+    <div class="protocols">
+      <article class="proto">
+        <div class="top"><span class="num">PROTOCOL 01</span><span class="spec">Ages 7–14 · 2 h</span></div>
+        <h3>Weekend science programs</h3>
+        <p>One-off themed sessions — from the periodic table to astronomy — where children run the experiments themselves and parents join a parallel science quiz.</p>
+        <div class="price"><b>35 AZN</b> / child <i>Sample price — confirm with the team</i></div>
+      </article>
+      <article class="proto">
+        <div class="top"><span class="num">PROTOCOL 02</span><span class="spec">Ages 9–14 · weekly</span></div>
+        <h3>Science clubs</h3>
+        <p>Ongoing small groups by age — chemistry, biology, physics — with real lab equipment and take-home experiment notes.</p>
+        <div class="price"><b>120 AZN</b> / month <i>Sample price — confirm with the team</i></div>
+      </article>
+      <article class="proto">
+        <div class="top"><span class="num">PROTOCOL 03</span><span class="spec">Ages 7–14 · summer</span></div>
+        <h3>Summer city laboratories</h3>
+        <p>Week-long day labs across Baku locations: one district, one theme per week, ending in a mini-conference for parents.</p>
+        <div class="price"><b>250 AZN</b> / week <i>Sample price — confirm with the team</i></div>
+      </article>
+    </div>
+    <p class="after-note">Program names, formats and the 2019 founding come from the team's own site; <b>all prices above are placeholders</b> — the live site's real prices, once published, drop straight into these slots.</p>
+  </section>
+
+  <section id="method">
+    <div class="kicker">The method — in three steps</div>
+    <h2>Not watching — doing</h2>
+    <p class="lede">How a Sciencely session works, drafted from the team's own description of its format.</p>
+    <div class="method">
+      <div class="step"><span class="dotn">?</span><span class="n">01 / Question</span><h3>Start with «почему?»</h3><p>A real phenomenon opens the session — something odd enough that the children ask the question before the educator does.</p></div>
+      <div class="step"><span class="dotn">⚗</span><span class="n">02 / Experiment</span><h3>Kids run it themselves</h3><p>Every child handles the experiment in an equipped laboratory, with age-rated materials and lab safety equipment.</p></div>
+      <div class="step"><span class="dotn">!</span><span class="n">03 / Explanation</span><h3>Name what they saw</h3><p>Only after observing: the science behind it, in words for their age — plus notes and experiments to take home.</p></div>
+    </div>
+  </section>
+
+  <section id="fix">
+    <div class="kicker">What this redesign fixes</div>
+    <h2>Broken prices, one language</h2>
+    <div class="callout" style="margin-top:16px">
+      <b class="lbl">Found on the live site</b>
+      <p>On sciencely.az, price fields render as broken placeholders — the «ман.» currency marker with no number — and the whole site is Russian-only, so international parents in Baku cannot see what a program costs or even what it is called. This demo is <b>trilingual-ready (RU · EN · AZ)</b> and prices every program visibly; at launch the team fills the real numbers or removes prices until they are ready to state them.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="kicker">Parents' questions — draft answers</div>
+    <h2>Before the first class</h2>
+    <p class="lede">Each answer is a <b>draft for the team to confirm or correct</b>.</p>
+    <div class="faq">
+      <details><summary>What language is the class in?</summary><p><b>Draft answer:</b> Russian today, with EN/AZ versions on the roadmap — a live page states exactly which language each group runs in. [Placeholder — confirm with team]</p></details>
+      <details><summary>Is it safe?</summary><p><b>Draft answer:</b> experiments are age-rated and done with lab safety equipment; instructors are trained scientists, not animators. [Placeholder — confirm with team]</p></details>
+      <details><summary>Can we try one class first?</summary><p><b>Draft answer:</b> weekend programs are one-off sessions; clubs start with a trial visit. [Placeholder — confirm with team]</p></details>
+      <details><summary>How do we pay?</summary><p><b>Draft answer:</b> payment details travel with the booking confirmation — stated once, plainly, in the parent's language. [Placeholder — confirm with team]</p></details>
+      <details><summary>Where exactly is it?</summary><p><b>Draft answer:</b> labs run in central Baku locations; the exact address comes with the booking confirmation. [Placeholder — confirm with team]</p></details>
+      <details><summary>What if we miss a session?</summary><p><b>Draft answer:</b> club members get a make-up session or a materials kit for the missed topic. [Placeholder — confirm with team]</p></details>
+    </div>
+  </section>
+
+  <section id="signup">
+    <div class="kicker">Sign-up — demo only</div>
+    <h2>Ask about current programs</h2>
+    <p class="lede">A parent's form that works in any language. <b>This demo sends nothing</b> — the confirmation below is the whole behavior; no data is stored or transmitted.</p>
+    <div class="enquiry">
+      <div class="contact-side">
+        <p>Prefer to talk? On the live site this column carries the team's own WhatsApp number next to the form — the channel parents already use — opened with your request pre-typed and ready to send yourself.</p>
+        <p class="small">Draft for approval — no contact details are invented here; the live site's published number would be restored on launch.</p>
+        <p style="margin-top:20px"><a class="btn ghost" href="https://sciencely.az/" rel="noopener">Visit the official site ↗</a></p>
+        <p style="margin-top:16px"><a class="promo" href="../promo/sciencely/">See the draft promo concept (unpublished) →</a></p>
+      </div>
+      <form id="su" onsubmit="event.preventDefault();document.getElementById('ok').style.display='block';document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'})">
+        <div class="two">
+          <div><label for="pn">Parent's name</label><input id="pn" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+          <div><label for="ca">Child's age</label><select id="ca"><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></div>
+        </div>
+        <div><label for="pr">Program</label><select id="pr"><option>Weekend program — current theme</option><option>Science club (monthly)</option><option>Summer city laboratory</option><option>Family activity — advise me</option></select></div>
+        <div><label for="ph">Phone / WhatsApp</label><input id="ph" type="text" autocomplete="off" placeholder="Shown here only — nothing is stored"></div>
+        <button type="submit">Preview the request</button>
+        <p class="ok" id="ok"><b>Demo only — nothing was sent.</b> No data was stored, transmitted or shared. On the live site this request would reach Sciencely's own WhatsApp, pre-typed and ready for you to send.</p>
+        <p class="tiny">No network request is made; no personal information is collected or persisted.</p>
+      </form>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand"><span>Sciencely.</span> Baku</div>
+    <div><b>SCIENCELY. BAKU</b> · natural science for children · weekend programs · clubs · family activities · Baku<br>
+    Proposed redesign demo — not the official website. Draft awaiting client approval; program names and formats belong to Sciencely; prices shown are placeholders pending the team's confirmation.</div>
+  </div>
+</footer>
+
+</body>
+</html>

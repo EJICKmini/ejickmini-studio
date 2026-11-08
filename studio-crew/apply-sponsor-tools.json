@@ -1,0 +1,1510 @@
+{
+  "errors": [],
+  "credentials": [
+    {
+      "id": "vcr_g9183y6dvbxy33m7bzq68c1pps",
+      "kind": "static_bearer",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.apify.com?tools=compass/crawler-google-places",
+      "created": true,
+      "present": true,
+      "length": 46
+    },
+    {
+      "id": "vcr_19x2a98wh5mjtabygh1q1gc6em",
+      "kind": "static_bearer",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.apify.com",
+      "created": true,
+      "present": true,
+      "length": 46
+    },
+    {
+      "id": "vcr_77prpkfe0txpt7fb8aa26w7nqv",
+      "kind": "static_bearer",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.monid.ai/v1",
+      "created": true,
+      "present": true,
+      "length": 35
+    },
+    {
+      "id": "vcr_2wh2n4bhp9f0afh4nsgsnt2xcb",
+      "kind": "static_bearer",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441",
+      "created": true,
+      "present": true,
+      "length": 69
+    },
+    {
+      "id": "vcr_brthz3e82az9w0h4wy3yecqvtt",
+      "kind": "static_bearer",
+      "agent_id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+      "mcp_server_url": "https://api.openai.com",
+      "created": true,
+      "present": true,
+      "length": 164
+    }
+  ],
+  "before": {
+    "website-studio-scout": {
+      "id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "name": "website-studio-scout",
+      "version": 4,
+      "model": "anthropic/claude-haiku-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 25000000,
+        "max_task_micro_usd": 6000000,
+        "period": "day"
+      },
+      "mcp_servers": [],
+      "tools": {
+        "default_config": {
+          "permission": "allow"
+        },
+        "configs": {
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "skills.push": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "deployments.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "skills.push_version": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "vaults.credentials.create": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 20005
+    },
+    "website-studio-reviewer": {
+      "id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+      "name": "website-studio-reviewer",
+      "version": 1,
+      "model": "anthropic/claude-sonnet-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 5000000,
+        "max_task_micro_usd": 1000000,
+        "period": "day"
+      },
+      "mcp_servers": [
+        {
+          "name": "neon",
+          "url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441"
+        }
+      ],
+      "tools": {
+        "default_config": {
+          "permission": "ask"
+        },
+        "configs": {
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.run_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.explain_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_branch": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.describe_project": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.list_organizations": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_database_tables": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.run_sql_transaction": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.list_shared_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.describe_table_schema": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_connection_string": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 1621
+    },
+    "website-studio-ceo": {
+      "id": "agt_jpba9m28jnc5784pjd876zgdjz",
+      "name": "website-studio-ceo",
+      "version": 28,
+      "model": "anthropic/claude-sonnet-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 50000000,
+        "max_task_micro_usd": 15000000,
+        "period": "day"
+      },
+      "mcp_servers": [
+        {
+          "name": "neon",
+          "url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441"
+        },
+        {
+          "name": "mobilerun",
+          "url": "https://api.mobilerun.ai/v1/mcp"
+        }
+      ],
+      "tools": {
+        "default_config": {
+          "permission": "allow"
+        },
+        "configs": {
+          "board_read": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "board_write": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.run_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.explain_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "deployments.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_branch": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.describe_project": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mcp.mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_organizations": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_database_tables": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.run_sql_transaction": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.list_shared_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "vaults.credentials.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_table_schema": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_connection_string": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 4022
+    }
+  },
+  "after": {
+    "scout": {
+      "id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "name": "website-studio-scout",
+      "version": 5,
+      "model": "anthropic/claude-haiku-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 25000000,
+        "max_task_micro_usd": 6000000,
+        "period": "day"
+      },
+      "mcp_servers": [
+        {
+          "name": "apify",
+          "url": "https://mcp.apify.com?tools=compass/crawler-google-places"
+        },
+        {
+          "name": "neon",
+          "url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441"
+        },
+        {
+          "name": "monid",
+          "url": "https://mcp.monid.ai/v1"
+        }
+      ],
+      "tools": {
+        "default_config": {
+          "permission": "deny"
+        },
+        "configs": {
+          "ls": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "bash": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "edit": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "find": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "read": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "write": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "web_fetch": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "board_read": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "read_skill": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "web_search": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "board_write": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "skills.push": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.run_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_run": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.call-actor": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "deployments.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_projects": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.get-actor-run": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "apify.search-actors": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_balance": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_dispute": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_get_run": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "monid.monid_inspect": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.create_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "skills.push_version": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_discover": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "monid.monid_feedback": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_stop_run": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.abort-actor-run": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_list_runs": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.fetch-apify-docs": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.get-dataset-items": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "apify.search-apify-docs": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_promo_codes": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_organizations": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_get_resource": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.get_database_tables": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.run_sql_transaction": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "apify.fetch-actor-details": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_shared_projects": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "vaults.credentials.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_list_resources": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_table_schema": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_connection_string": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_list_workspaces": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.apify--email-extractor": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_release_resource": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_redeem_promo_code": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.get-key-value-store-record": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_list_resource_events": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "monid.monid_get_resource_external": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "apify.compass--crawler-google-places": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "apify.lukaskrivka--google-maps-with-contact-details": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 22675
+    },
+    "reviewer": {
+      "id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+      "name": "website-studio-reviewer",
+      "version": 3,
+      "model": "anthropic/claude-sonnet-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 5000000,
+        "max_task_micro_usd": 1000000,
+        "period": "day"
+      },
+      "mcp_servers": [
+        {
+          "name": "neon",
+          "url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441"
+        }
+      ],
+      "tools": {
+        "default_config": {
+          "permission": "ask"
+        },
+        "configs": {
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.run_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.explain_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_branch": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.describe_project": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.list_organizations": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_database_tables": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.run_sql_transaction": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "openai.OPENAI_CREATE_RUN": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_LIST_FILES": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_shared_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "openai.OPENAI_DELETE_FILE": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_LIST_MODELS": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_UPLOAD_FILE": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_table_schema": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_connection_string": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_IMAGE": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_THREAD": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_MODIFY_THREAD": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_MESSAGE": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_LIST_RUN_STEPS": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_RETRIEVE_MODEL": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_RESPONSE": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "openai.OPENAI_LIST_FINE_TUNES": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_RETRIEVE_THREAD": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_ASSISTANT": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_DELETE_ASSISTANT": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_RETRIEVE_ASSISTANT": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "openai.OPENAI_CREATE_CHAT_COMPLETION": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 4368
+    },
+    "ceo": {
+      "id": "agt_jpba9m28jnc5784pjd876zgdjz",
+      "name": "website-studio-ceo",
+      "version": 30,
+      "model": "anthropic/claude-sonnet-5.5",
+      "skills": [
+        "website-studio-design-system",
+        "website-studio-lessons",
+        "website-studio-operations"
+      ],
+      "budget": {
+        "cap_micro_usd": 50000000,
+        "max_task_micro_usd": 15000000,
+        "period": "day"
+      },
+      "mcp_servers": [
+        {
+          "name": "neon",
+          "url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441"
+        },
+        {
+          "name": "mobilerun",
+          "url": "https://api.mobilerun.ai/v1/mcp"
+        }
+      ],
+      "tools": {
+        "default_config": {
+          "permission": "allow"
+        },
+        "configs": {
+          "board_read": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "email.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "board_write": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "social.post": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.run_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "agents.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "agents.update": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "credits.topup": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "messages.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "phone.numbers": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.send": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "sessions.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.explain_sql": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "credits.subscribe": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "deployments.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_branch": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.create_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.delete_project": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_branch": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.describe_project": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "mcp.mobilerun.run_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "mcp.mobilerun.stop_task": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.list_organizations": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_database_tables": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.run_sql_transaction": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.list_shared_projects": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "vaults.credentials.create": {
+            "enabled": false,
+            "permission": "deny"
+          },
+          "neon.describe_table_schema": {
+            "enabled": true,
+            "permission": "allow"
+          },
+          "neon.get_connection_string": {
+            "enabled": false,
+            "permission": "deny"
+          }
+        }
+      },
+      "system_bytes": 4022
+    }
+  },
+  "openai": {
+    "callable_from_naive": false,
+    "selected_model": "gpt-5.4-mini",
+    "model_source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+    "reason": "Naive official OpenAI connector exists and supports response-only auth config OPENAI_CREATE_RESPONSE. Connected with the key through the documented managed connection and attached a dedicated identity to reviewer only, but connection remains initiated (no browser link, no failure reason). Therefore not operational/verified callable. Reviewer fails closed unless actual tool executes successfully and both checks PASS. Static api.openai.com vault credential alone remains inert.",
+    "supported_native_path_found": true,
+    "activation_verified": false,
+    "native_connection": {
+      "errors": [],
+      "requested_tools": [
+        "OPENAI_CREATE_RESPONSE"
+      ],
+      "source": "Naive official connections catalog openai; Composio official OpenAI toolkit documents Create Response. Not a local proxy or operator-side inference substitute.",
+      "auth_config": {
+        "id": "ac_Ma_AUYPn1rlk",
+        "connector": "openai",
+        "auth": "api_key",
+        "tools": [
+          "OPENAI_CREATE_RESPONSE"
+        ]
+      },
+      "identity": {
+        "id": "idn_zkvhvs94fxngkx5c2r8bywt76h",
+        "name": "website-studio-reviewer-openai"
+      },
+      "connection": {
+        "id": "ca_jYTWpLmFESvd",
+        "connector": "openai",
+        "status": "initiated",
+        "status_reason": null,
+        "identity_id": "idn_zkvhvs94fxngkx5c2r8bywt76h",
+        "requires_browser": false
+      },
+      "attach": {
+        "object": "agent_identity",
+        "agent_id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+        "identity_id": "idn_zkvhvs94fxngkx5c2r8bywt76h",
+        "attached": true,
+        "created": true
+      },
+      "reviewer": {
+        "id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+        "version": 3,
+        "model": "anthropic/claude-sonnet-5.5"
+      },
+      "ceo": {
+        "id": "agt_jpba9m28jnc5784pjd876zgdjz",
+        "version": 30,
+        "model": "anthropic/claude-sonnet-5.5",
+        "prompt_unchanged": true
+      }
+    }
+  },
+  "monid": {
+    "mcp_url": "https://mcp.monid.ai/v1",
+    "connection_verified": true,
+    "paid_lookup_enabled": false,
+    "reason": "Official Monid MCP exposes generic monid_run, not an Instagram-only execution tool. Naive tool policy supports name-level allow/deny, not documented endpoint argument allowlists. Generic execution denied rather than enabling other scrapers or paid actions."
+  },
+  "no_email_sent": true,
+  "no_social_post": true,
+  "no_sessions_started": true,
+  "no_extra_sessions": true,
+  "no_neon_test_writes": true,
+  "ceo_prompt_unchanged": true,
+  "roster": {
+    "type": "coordinator",
+    "agents": [
+      {
+        "type": "agent",
+        "id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+        "version": 5
+      },
+      {
+        "type": "agent",
+        "id": "agt_2hfr7xzych9w01s7ptcnv3fn8j",
+        "version": 7
+      },
+      {
+        "type": "agent",
+        "id": "agt_3trp0jxycntw1xfnep7b3cjng3",
+        "version": 4
+      },
+      {
+        "type": "agent",
+        "id": "agt_v5y3qfxdj5s3rmgxyjbbfen0pa",
+        "version": 2
+      },
+      {
+        "type": "agent",
+        "id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+        "version": 3
+      }
+    ],
+    "board": true
+  },
+  "tool_list_source": "Official servers tools/list via MCP initialize, then agent stored policies verified by agents.get; no runtime session used.",
+  "tests": {
+    "apify": {
+      "calls": 1,
+      "initial_rejected_request": {
+        "status": 400,
+        "reason": "maxTotalChargeUsd below documented actor minimum $0.50; no run created"
+      },
+      "query": "florist Baku",
+      "maxItems": 1,
+      "maxCrawledPlacesPerSearch": 1,
+      "neon_writes": 0,
+      "run_id": "OWwbOE3FryjOqRsLY",
+      "status": "SUCCEEDED",
+      "cost_usd": 0.0002,
+      "chargedEventCounts": {
+        "place-scraped": 1,
+        "filter-applied": 0,
+        "place-details-scraped": 0,
+        "contact-details-scraped": 0,
+        "lead-scraped": 0,
+        "lead-email-verified": 0,
+        "social-profile-scraped": 0,
+        "review-scraped": 0,
+        "image-scraped": 0,
+        "competitor-analyzed": 0,
+        "apify-actor-start": 4
+      },
+      "dataset_id": "eeh8azcapKAHvO7Xd",
+      "result": [
+        {
+          "title": "Baku Local Florist",
+          "website": "https://www.garden.az/",
+          "url": "https://www.google.com/maps/search/?api=1&query=Baku%20Local%20Florist&query_place_id=ChIJqRrfn599MEARabvYYZQJJTs",
+          "categoryName": "Florist",
+          "city": "Baku"
+        }
+      ],
+      "http_start_attempts": 2,
+      "created_runs": 1
+    },
+    "monid": {
+      "calls": 1,
+      "profile": "https://www.instagram.com/sewel_atelier",
+      "provider": "apify",
+      "endpoint": "/apify/instagram-profile-scraper",
+      "maxCost": 0.05,
+      "neon_writes": 0,
+      "run_id": "01M6WN5Y13NQKA58PVCN4NJQW0",
+      "initial_status": "RUNNING",
+      "status": "COMPLETED",
+      "cost": {
+        "value": 0.0016,
+        "currency": "USD"
+      },
+      "public_evidence": {
+        "username": "sewel_atelier",
+        "followersCount": 106457,
+        "bio": "▫️Индивидуальный пошив на заказ 🪡\n▫️Реставрация одежды, подгонка по фигуре\n▫️Алматы, Наурызбай батыра 68 📍\n  ↓ Для консультации ↓",
+        "last_post_date": "2026-11-06T13:18:12.000Z"
+      },
+      "output_keys": [
+        "inputUrl",
+        "id",
+        "username",
+        "url",
+        "fullName",
+        "biography",
+        "externalUrls",
+        "externalUrl",
+        "externalUrlShimmed",
+        "followersCount",
+        "followsCount",
+        "isBusinessAccount",
+        "businessCategoryName",
+        "private",
+        "verified",
+        "profilePicUrl",
+        "profilePicUrlHD",
+        "latestIgtvVideos",
+        "postsCount",
+        "latestPosts",
+        "fbid"
+      ]
+    },
+    "reviewer": {
+      "executed": false,
+      "naive_spend_usd": 0,
+      "openai_spend_usd": 0,
+      "session_id": null,
+      "reason": "SKIPPED: actual Fine Cup existing draft not found in requested files; OpenAI native connection also remains initiated, not verified callable. No draft invented and no local substitute check."
+    }
+  },
+  "fine_cup_draft": {
+    "found_in_files": false,
+    "searched": [
+      "laptop STATUS.md, RUN_REPORT.md, company.js, studio-crew, demos",
+      "box STATUS.md, RUN_REPORT.md, company.js, studio-crew, demos/archive copies, preserved bounded-run events"
+    ],
+    "earlier_reference": "RUN_REPORT.md mentions an existing draft untouched, but contains no actual draft text",
+    "crm_queried": false
+  },
+  "session_ids": [],
+  "blockers": [
+    "Naive official OpenAI connector exists and supports response-only auth config OPENAI_CREATE_RESPONSE. Connected with the key through the documented managed connection and attached a dedicated identity to reviewer only, but connection remains initiated (no browser link, no failure reason). Therefore not operational/verified callable. Reviewer fails closed unless actual tool executes successfully and both checks PASS. Static api.openai.com vault credential alone remains inert.",
+    "Official Monid MCP exposes generic monid_run, not an Instagram-only execution tool. Naive tool policy supports name-level allow/deny, not documented endpoint argument allowlists. Generic execution denied rather than enabling other scrapers or paid actions.",
+    "Neon lead/contact INSERT-only and contacts-no-SELECT limits are prompt policy, not DB role enforcement.",
+    "Naive MCP vault injection/runtime not exercised: no Naive sessions created."
+  ],
+  "agents_verified": {
+    "scout": {
+      "id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "version": 5,
+      "model": "anthropic/claude-haiku-5.5"
+    },
+    "reviewer": {
+      "id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+      "version": 3,
+      "model": "anthropic/claude-sonnet-5.5"
+    },
+    "ceo": {
+      "id": "agt_jpba9m28jnc5784pjd876zgdjz",
+      "version": 30,
+      "model": "anthropic/claude-sonnet-5.5"
+    },
+    "designer": {
+      "id": "agt_2hfr7xzych9w01s7ptcnv3fn8j",
+      "version": 7,
+      "model": "anthropic/claude-sonnet-5.5"
+    },
+    "qa": {
+      "id": "agt_3trp0jxycntw1xfnep7b3cjng3",
+      "version": 4,
+      "model": "anthropic/claude-sonnet-5.5"
+    },
+    "sales": {
+      "id": "agt_v5y3qfxdj5s3rmgxyjbbfen0pa",
+      "version": 2,
+      "model": "anthropic/claude-sonnet-5.5"
+    }
+  },
+  "credential_readback": [
+    {
+      "id": "vcr_g9183y6dvbxy33m7bzq68c1pps",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.apify.com?tools=compass/crawler-google-places",
+      "last_injected_at": null
+    },
+    {
+      "id": "vcr_19x2a98wh5mjtabygh1q1gc6em",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.apify.com",
+      "last_injected_at": null
+    },
+    {
+      "id": "vcr_77prpkfe0txpt7fb8aa26w7nqv",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.monid.ai/v1",
+      "last_injected_at": null
+    },
+    {
+      "id": "vcr_2wh2n4bhp9f0afh4nsgsnt2xcb",
+      "agent_id": "agt_yb1hkcq0ntmmb6fbarwszjvp15",
+      "mcp_server_url": "https://mcp.neon.tech/mcp?projectId=hidden-butterfly-77944441",
+      "last_injected_at": null
+    },
+    {
+      "id": "vcr_brthz3e82az9w0h4wy3yecqvtt",
+      "agent_id": "agt_ms224vw8z3jg83nfm6ebzn9j4f",
+      "mcp_server_url": "https://api.openai.com",
+      "last_injected_at": null
+    }
+  ],
+  "permission_summary": {
+    "apify_allow": [
+      "apify.get-actor-run",
+      "apify.get-dataset-items",
+      "apify.compass--crawler-google-places"
+    ],
+    "apify_deny": [
+      "apify.call-actor",
+      "apify.search-actors",
+      "apify.abort-actor-run",
+      "apify.fetch-apify-docs",
+      "apify.search-apify-docs",
+      "apify.fetch-actor-details",
+      "apify.apify--email-extractor",
+      "apify.get-key-value-store-record",
+      "apify.lukaskrivka--google-maps-with-contact-details"
+    ],
+    "monid_allow": [
+      "monid.monid_get_run",
+      "monid.monid_inspect",
+      "monid.monid_discover"
+    ],
+    "monid_deny": [
+      "monid.monid_run",
+      "monid.monid_topup",
+      "monid.monid_balance",
+      "monid.monid_dispute",
+      "monid.monid_feedback",
+      "monid.monid_stop_run",
+      "monid.monid_list_runs",
+      "monid.monid_promo_codes",
+      "monid.monid_get_resource",
+      "monid.monid_list_resources",
+      "monid.monid_list_workspaces",
+      "monid.monid_release_resource",
+      "monid.monid_redeem_promo_code",
+      "monid.monid_list_resource_events",
+      "monid.monid_get_resource_external"
+    ],
+    "openai_allow": [
+      "openai.OPENAI_CREATE_RESPONSE"
+    ],
+    "openai_auth_config_tools": [
+      "OPENAI_CREATE_RESPONSE"
+    ]
+  },
+  "timestamp_pst": "2026-11-07 08:07:08 PM PST",
+  "no_domain_or_inbox_setup": true,
+  "no_stripe_changes": true,
+  "no_personal_agents_contacted": true,
+  "no_ceo_session": true,
+  "status_append_path": "/workspace/naive-hackathon/studio-crew/t85-status-append.md",
+  "secret_audit": {
+    "files_checked": 27,
+    "leak_count": 0
+  }
+}

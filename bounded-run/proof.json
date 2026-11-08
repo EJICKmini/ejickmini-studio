@@ -1,0 +1,77 @@
+{
+  "checked_at_pst": "11/7/2026, 5:44:23 PM PST",
+  "deployment": "apd_r3gee02cwht11sars0msabh9q8",
+  "file_count": 20,
+  "changed": [],
+  "added": [],
+  "live": [
+    {
+      "path": "index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/",
+      "status": 200,
+      "baseline_sha256": "0baf91afdf87747e5b91d96b270b920a0f24e83215e688c1ce0e1f0da3ece82f",
+      "live_sha256": "0baf91afdf87747e5b91d96b270b920a0f24e83215e688c1ce0e1f0da3ece82f",
+      "match": true
+    },
+    {
+      "path": "style.css",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/style.css",
+      "status": 200,
+      "baseline_sha256": "2e9ebbb47b23367534c54f65145e8612cbd0af698c8174052eaf135d2c69affc",
+      "live_sha256": "2e9ebbb47b23367534c54f65145e8612cbd0af698c8174052eaf135d2c69affc",
+      "match": true
+    },
+    {
+      "path": "photo/murad.jpg",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/photo/murad.jpg",
+      "status": 200,
+      "baseline_sha256": "320d4539f31fe70dd0b8b99b01a9f7538a848b68eef05192f194f1ce38330145",
+      "live_sha256": "320d4539f31fe70dd0b8b99b01a9f7538a848b68eef05192f194f1ce38330145",
+      "match": true
+    },
+    {
+      "path": "studio/index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/studio/",
+      "status": 200,
+      "baseline_sha256": "b62e84c5d5747bf78184bacbd6f373f1e6212f80e3a2dea1ce0c17afdcb286e4",
+      "live_sha256": "b62e84c5d5747bf78184bacbd6f373f1e6212f80e3a2dea1ce0c17afdcb286e4",
+      "match": true
+    },
+    {
+      "path": "studio/don-dar/index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/studio/don-dar/",
+      "status": 200,
+      "baseline_sha256": "a4de45ac2ba6fa5b126c1552b5e123c98974f8eaeb9fa75417f10915474d63bc",
+      "live_sha256": "a4de45ac2ba6fa5b126c1552b5e123c98974f8eaeb9fa75417f10915474d63bc",
+      "match": true
+    },
+    {
+      "path": "studio/azimut/index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/studio/azimut/",
+      "status": 200,
+      "baseline_sha256": "2c875846898e14f6c58b3b11f5accb6e5ee93a923f83eb43e608ce1c192b1f8c",
+      "live_sha256": "2c875846898e14f6c58b3b11f5accb6e5ee93a923f83eb43e608ce1c192b1f8c",
+      "match": true
+    },
+    {
+      "path": "studio/sciencely/index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/studio/sciencely/",
+      "status": 200,
+      "baseline_sha256": "fa9bf9478c7fc5801a7e549f54282dcee4257f6e4b6e71ac8152db796717fa2e",
+      "live_sha256": "fa9bf9478c7fc5801a7e549f54282dcee4257f6e4b6e71ac8152db796717fa2e",
+      "match": true
+    },
+    {
+      "path": "studio/fine-cup/index.html",
+      "url": "https://personal-site-xs12r15q0hxw.vercel.app/studio/fine-cup/",
+      "status": 200,
+      "baseline_sha256": "2a1dcf6d28ddc38a9608fabea6174d26ad1c181915c58bb6b5c19caab1f3ff86",
+      "live_sha256": "2a1dcf6d28ddc38a9608fabea6174d26ad1c181915c58bb6b5c19caab1f3ff86",
+      "match": true
+    }
+  ],
+  "melisa": {
+    "status": 404,
+    "has_demo_label": false
+  }
+}
